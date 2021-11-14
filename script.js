@@ -277,19 +277,19 @@ function shuffleCards(array) {
 
 var heroInitiativeCards = [
     {
-        name: 'Clan Hamato Michelangelo',
+        name: 'Clan Hamato Turtle Michelangelo',
         image: 'Michelangelo.png'
     },
     {
-        name: 'Clan Hamato Donatello',
+        name: 'Clan Hamato Turtle Donatello',
         image: 'Donatello.png'
     },
     {
-        name: 'Clan Hamato Leonardo',
+        name: 'Clan Hamato Turtle Leonardo',
         image: 'Leonardo.png'
     },
     {
-        name: 'Clan Hamato Raphael',
+        name: 'Clan Hamato Turtle Raphael',
         image: 'Raphael.png'
     },
     {
@@ -413,7 +413,7 @@ var heroInitiativeCards = [
         image: 'Usagi.png'
     },
     {
-        name: 'Clan Hamato Jennika',
+        name: 'Clan Hamato Turtle Jennika',
         image: 'Jennika.png'
     },
     {

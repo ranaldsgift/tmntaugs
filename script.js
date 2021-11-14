@@ -393,7 +393,7 @@ var heroInitiativeCards = [
         image: 'Purple Dragon hero.png'
     },
     {
-        name: 'Clan Hamato Raphael Loner',
+        name: 'Clan Hamato Turtle Raphael Loner',
         image: 'Raphael loner.png'
     },
     {

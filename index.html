@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>TMNT Board Game Assistant</title>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h2 class="setup-header" onclick="toggleSetup()" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Hide Setup -</h2>
+        <div class="setup-area">         
+            <div class="initiative-selection">
+                <h3 class="select-heroes-header">Select Heroes</h3>
+                <div class="hero-initiatives">
+                </div>
+                <h3>Select Villains</h3>
+                <div class="villain-initiatives">
+                </div>
+            </div>
+            <div class="event-selection">
+                <h3>Select Event Decks</h3>
+                <div class="event-deck-options"></div>
+            </div>
+        </div>
+        <div class="play-area">
+            <div class="initiative-deck-buttons">
+                <button onclick="shuffleInitiativeDeck()">Shuffle Deck</button>
+                <button onclick="shuffleAllInitiativeCards()">Shuffle Discards into Deck</button>
+                <button onclick="addEventToInitiativeDeck()">Add Event</button>
+                <button onclick="addEventToInitiativeDiscard()">Add Event to Discard</button>
+                <button onclick="removeEventFromInitiativeDeck()">Remove Event</button>
+                <span class="initiative-event-quantity" data-quantity="0">Number of Events in Deck:</span>
+            </div>
+            <div class="initiative-deck">
+                <span class="initiative-deck-quantity">0</span>
+                <!-- <button onclick="drawInitiativeCard()">Draw Initiative Card</button> -->
+                <div class="initiative-draw-deck draw-deck">
+                    <img onclick="drawInitiativeCard()" src="images/initiative/back.jpg">
+                </div>
+                <div class="initiative-cards card-pile">
+                </div>
+                <div class="active-event-cards card-pile">
+                </div>
+            </div>
+            <div class="event-deck-buttons">
+                <button onclick="shuffleEventDeck()">Shuffle Deck</button>
+                <button onclick="shuffleAllEventCards()">Shuffle All Cards</button>
+            </div>
+            <div class="event-deck">
+                <span class="event-deck-quantity">0</span>
+                <!-- <button onclick="drawEventCard()">Draw Event Card</button> -->
+                <div class="event-draw-deck draw-deck">
+                    <img onclick="drawEventCard()" src="images/events/back.png">
+                </div>
+                <div class="event-cards card-pile">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

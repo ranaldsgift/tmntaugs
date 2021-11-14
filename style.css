@@ -1,0 +1,177 @@
+.event-setup, .initiative-setup {
+    display: grid;
+    width: 300px;
+    grid-auto-rows: minmax(30px, auto);
+    margin: 0 auto;
+}
+.initiative-cards img {
+    display: none;
+    max-height: 400px;
+    max-width: 367px;
+}
+
+.initiative-cards img:last-child {
+    display: inline-block;
+}
+
+.event-cards img {
+    max-height: 400px;    
+    max-width: 367px;
+}
+
+.event-cards {
+    display: flex;
+    /* flex-direction: row-reverse; */
+}
+
+.play-area {
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-row-gap: 1rem;
+}
+
+body {
+    background: #008f61;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.draw-deck img, .active-event-cards img {    
+    max-height: 400px;
+    max-width: 367px;
+}
+
+.initiative-deck, .event-deck {
+    display: flex;
+    column-gap: 1rem;
+    position: relative;
+}
+
+.event-cards {
+    column-gap: 1rem;
+}
+
+.event-cards img:nth-child(n+5) {
+    display: none;
+}
+
+span.initiative-deck-quantity, span.event-deck-quantity {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: white;
+    background: #008f61;
+    width: 25px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.play-area img {
+    box-shadow: 1px 1px 5px black;
+}
+
+.villain-initiatives img, .hero-initiatives img, .initiative-card-mini {
+    height: 118px;
+    width: 81px;
+    margin: 4px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px black;
+    position: relative;
+    background-size: cover;
+}
+
+.initiative-card-mini:hover {
+    outline: 2px solid #ffd700;
+    cursor: pointer;
+}
+
+.villain-initiatives img.selected, .hero-initiatives img.selected, .initiative-card-mini.selected {
+    outline: 2px solid #ffd700;
+}
+
+.villain-initiatives img:before, .hero-initiatives img:before, .initiative-card-mini.selected:before {
+    content: attr(data-quantity); /* value that that refers to CSS 'content' */
+    position:absolute;
+    top: 2px;
+    left: 2px;
+    background: #008f61;
+    border-radius: 15px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+}
+
+.hero-initiatives, .villain-initiatives {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.card-pile img, .draw-deck img {
+    border-radius: 6px;
+}
+
+.event-deck-options {
+    display: flex;
+    column-gap: 5px;
+}
+
+.event-deck-options label {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #ff9800;
+    cursor: pointer;
+}
+
+.event-deck-options label.selected {
+    background: green;
+    outline: 2px solid #ffd700;
+}
+
+.event-deck-options label:hover {
+    outline: 2px solid #ffd700;
+}
+
+.select-heroes-header {
+    position: relative;
+}
+
+.select-heroes-header:after {
+    content: '(right-click to remove)';
+    top: 6px;
+    position: absolute;
+    font-size: 0.6rem;
+    color: white;
+    margin-left: 10px;
+    width: 112px;
+}
+
+.setup-area {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 5px -5px #000;
+}
+
+.initiative-event-quantity:after {
+    content: attr(data-quantity);
+    margin-left: 5px;
+}
+
+.active-event-cards {
+    column-gap: 10px;
+    display: flex;    
+    padding-left: 10px;
+    box-shadow: -5px 0 5px -5px;
+}
+
+span.initiative-event-quantity {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    background: #3f51b5;
+    width: 225px;
+    color: white;
+    text-align: center;
+    padding: 0 10px;
+    border-radius: 5px;
+}

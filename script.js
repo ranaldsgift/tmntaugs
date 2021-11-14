@@ -277,115 +277,115 @@ function shuffleCards(array) {
 
 var heroInitiativeCards = [
     {
-        name: 'Michelangelo',
+        name: 'Clan Hamato Michelangelo',
         image: 'Michelangelo.png'
     },
     {
-        name: 'Donatello',
+        name: 'Clan Hamato Donatello',
         image: 'Donatello.png'
     },
     {
-        name: 'Leonardo',
+        name: 'Clan Hamato Leonardo',
         image: 'Leonardo.png'
     },
     {
-        name: 'Raphael',
+        name: 'Clan Hamato Raphael',
         image: 'Raphael.png'
     },
     {
-        name: 'Casey Jones',
+        name: 'Clan Hamato Casey Jones',
         image: 'Casey Jones.png'
     },
     {
-        name: 'April O\'Neil',
+        name: 'Clan Hamato April O\'Neil',
         image: 'April ONeil.png'
     },
     {
-        name: 'Splinter',
+        name: 'Clan Hamato Splinter',
         image: 'Splinter.png'
     },
     {
-        name: 'Baxter',
+        name: 'Stockgen Baxter',
         image: 'Baxter hero.png'
     },
     {
-        name: 'Bebop',
+        name: 'Foot Clan Bebop',
         image: 'Bebop hero.png'
     },
     {
-        name: 'Rocksteady',
+        name: 'Foot Clan Rocksteady',
         image: 'Rocksteady hero.png'
     },
     {
-        name: 'Stan Saki Donatello',
+        name: 'Clan Hamato Stan Saki Donatello',
         image: 'Donatello alt.png'
     },
     {
-        name: 'Stan Saki Leonardo',
+        name: 'Clan Hamato Stan Saki Leonardo',
         image: 'Leonardo alt.png'
     },
     {
-        name: 'Stan Saki Michelangelo',
+        name: 'Clan Hamato Stan Saki Michelangelo',
         image: 'Michelangelo alt.png'
     },
     {
-        name: 'Stan Saki Raphael',
+        name: 'Clan Hamato Stan Saki Raphael',
         image: 'Raphael alt.png'
     },
     {
-        name: 'The Foot Clan',
+        name: 'Foot Clan The Foot Clan',
         image: 'Foot Clan.png'
     },
     {
-        name: 'Hamato Sons',
+        name: 'Clan Hamato Hamato Sons',
         image: 'Hamato Sons.png'
     },
     {
-        name: 'Hamato Yoshi',
+        name: 'Clan Hamato Hamato Yoshi',
         image: 'Hamato Yoshi.png'
     },
     {
-        name: 'Herman',
+        name: 'Mutanimal Herman',
         image: 'Herman.png'
     },
     {
-        name: 'Hun',
+        name: 'Purple Dragon Hun',
         image: 'Hun hero.png'
     },
     {
-        name: 'Karai',
+        name: 'Foot Clan Karai',
         image: 'Karai hero.png'
     },
     {
-        name: 'Koya',
+        name: 'Foot Clan Koya',
         image: 'Koya.png'
     },
     {
-        name: 'Man Ray',
+        name: 'Mutanimal Man Ray',
         image: 'Man Ray.png'
     },
     {
-        name: 'Michelangelo Mutanimal',
+        name: 'Mutanimal Michelangelo Mutanimal',
         image: 'Michelangelo mutanimal.png'
     },
     {
-        name: 'Mondo Gecko',
+        name: 'Mutanimal Mondo Gecko',
         image: 'Mondo Gecko.png'
     },
     {
-        name: 'Old Hob',
+        name: 'Unaffiliated Old Hob',
         image: 'Old Hob hero.png'
     },
     {
-        name: 'Old Hob Mutanimal',
+        name: 'Mutanimal Old Hob Mutanimal',
         image: 'Old Hob mutanimal.png'
     },
     {
-        name: 'Oroku Saki',
+        name: 'Clan Hamato Oroku Saki',
         image: 'Oroku Saki.png'
     },
     {
-        name: 'Pigeon Pete',
+        name: 'Mutanimal Pigeon Pete',
         image: 'Pigeon Pete.png'
     },
     {
@@ -393,35 +393,35 @@ var heroInitiativeCards = [
         image: 'Purple Dragon hero.png'
     },
     {
-        name: 'Loner Raph',
+        name: 'Clan Hamato Loner Raph',
         image: 'Raphael loner.png'
     },
     {
-        name: 'Sally Pride',
+        name: 'Mutanimal Sally Pride',
         image: 'Sally Pride.png'
     },
     {
-        name: 'Slash',
+        name: 'Unaffiliated Slash',
         image: 'Slash.png'
     },
     {
-        name: 'Shredder',
+        name: 'Foot Clan Shredder',
         image: 'Shredder hero.png'
     },
     {
-        name: 'Usagi',
+        name: 'Unaffiliated Usagi',
         image: 'Usagi.png'
     },
     {
-        name: 'Jennika',
+        name: 'Clan Hamato Jennika',
         image: 'Jennika.png'
     },
     {
-        name: 'Metalhead',
+        name: 'Unaffiliated Metalhead',
         image: 'Metalhead hero.png'
     },
     {
-        name: 'Angel Bridge',
+        name: 'Purple Dragon Angel Bridge',
         image: 'Angel Bridge.png'
     }
 ]

@@ -449,23 +449,23 @@ var villainInitiativeCards = [
     },
     {
         name: 'Deviations Donatello',
-        image: 'Donatello villain.png'
+        image: 'Donatello Villain.png'
     },
     {
         name: 'Deviations Leonardo',
-        image: 'Leonardo villain.png'
+        image: 'Leonardo Villain.png'
     },
     {
         name: 'Deviations Michelangelo',
-        image: 'Michelangelo villain.png'
+        image: 'Michelangelo Villain.png'
     },
     {
         name: 'Deviations Raphael',
-        image: 'Raphael villain.png'
+        image: 'Raphael Villain.png'
     },
     {
         name: 'Foot Leader Leonardo',
-        image: 'Leonardo Chunin.png'
+        image: 'Leonardo chunin.png'
     },
     {
         name: 'Stockgen Minion Flyborgs',

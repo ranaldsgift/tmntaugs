@@ -292,7 +292,7 @@ function removeEventCard(e) {
 
         var focusDifficulty = eventCardContainer.dataset.active ? 4 : 4 - Array.prototype.indexOf.call(eventCardContainer.parentElement.children, eventCardContainer);
         if (confirm(`Perform a Difficulty ${focusDifficulty} Focus Check`)) {
-            eventCardContainer.querySelector('img').src = "images/events/resolved.png";
+            eventCardContainer.querySelector('img').src = "images/events/resolved.jpg";
             eventCardContainer.classList.add('empty');
             eventCardContainer.dataset.removed = true;            
         } else {            
@@ -327,7 +327,7 @@ function burnEventCard(e, image) {
         return;
     }
 
-    e.target.src = "images/events/resolved.png";
+    e.target.src = "images/events/resolved.jpg";
 
     e.target.parentElement.classList.add('empty');
     eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== e.target.dataset.filename; }) : [];

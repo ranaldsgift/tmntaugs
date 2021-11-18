@@ -153,22 +153,46 @@ function removeEventFromInitiativeDeck() {
 
 function shuffleInitiativeDeck() {
     initiativeDeck = shuffleCards(initiativeDeck.slice());
+
+    var initiativeDrawDeck = document.querySelector('.initiative-draw-deck');
+    if (initiativeDrawDeck) {
+        initiativeDrawDeck.classList.add('shuffled');
+        setTimeout(() => { initiativeDrawDeck.classList.remove('shuffled'); }, 1500)
+    }
 }
 
 function shuffleAllInitiativeCards() {
     initiativeDeck = shuffleCards(initiativeDeckPool.slice());
     document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length;
     document.querySelector('.initiative-cards').innerHTML = '';
+    
+    var initiativeDrawDeck = document.querySelector('.initiative-draw-deck');
+    if (initiativeDrawDeck) {
+        initiativeDrawDeck.classList.add('shuffled');
+        setTimeout(() => { initiativeDrawDeck.classList.remove('shuffled'); }, 1500)
+    }
 }
 
 function shuffleEventDeck() {
     eventDeck = shuffleCards(eventDeck.slice());
+    
+    var eventDrawDeck = document.querySelector('.event-draw-deck');
+    if (eventDrawDeck) {
+        eventDrawDeck.classList.add('shuffled');
+        setTimeout(() => { eventDrawDeck.classList.remove('shuffled'); }, 1500)
+    }
 }
 
 function shuffleAllEventCards() {
     eventDeck = shuffleCards(eventDeckPool.slice());
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
     document.querySelector('.event-cards').innerHTML = '';
+    
+    var eventDrawDeck = document.querySelector('.event-draw-deck');
+    if (eventDrawDeck) {
+        eventDrawDeck.classList.add('shuffled');
+        setTimeout(() => { eventDrawDeck.classList.remove('shuffled'); }, 1500)
+    }
 }
 
 function drawInitiativeCard() {
@@ -188,17 +212,111 @@ function drawInitiativeCard() {
 function drawEventCard() {
     var eventCards = document.querySelector('.event-cards');
     var eventDrawn = eventDeck.pop();
+
+    var eventCardContainer = document.createElement('div');
+    eventCardContainer.classList.add('event-card-container');
+    eventCardContainer.dataset.removed = false;
+    eventCardContainer.dataset.filename = eventDrawn.image;
+
+    var removeEventButton = document.createElement('span');
+    removeEventButton.innerHTML = 'Remove'
+    removeEventButton.classList.add('remove-event-button');
+    removeEventButton.addEventListener('click', removeEventCard);
+
+    var activateEventButton = document.createElement('span');
+    activateEventButton.innerHTML = 'Activate'
+    activateEventButton.classList.add('activate-event-button');
+    activateEventButton.addEventListener('click', activateEventCard);
+
+    var eventButtonContainer = document.createElement('div');
+    eventButtonContainer.classList.add('event-button-container');
+    eventButtonContainer.appendChild(activateEventButton);
+    eventButtonContainer.appendChild(removeEventButton);
+
     var eventImage = document.createElement('img');
     eventImage.src = `images/events/${eventDrawn.image}`;
     eventImage.role = 'button';
-    eventImage.dataset.filename = eventDrawn.image;
 
-    eventImage.addEventListener('click', burnEventCard);
+/*     eventImage.addEventListener('click', burnEventCard);
     eventImage.addEventListener('contextmenu', unburnEventCard);
-    eventImage.addEventListener('middleclick', moveEventToActivePool);
+    eventImage.addEventListener('middleclick', moveEventToActivePool); */
 
-    eventCards.prepend(eventImage);
+    eventCardContainer.appendChild(eventButtonContainer);
+    eventCardContainer.appendChild(eventImage);
+
+    var eventCardQuantity = document.querySelectorAll('.event-cards .event-card-container').length;
+    var resolvedEventCardQuantity = document.querySelectorAll('.event-cards .event-card-container').length;
+
+    var slot1Card = document.querySelector('.event-cards .event-card-container:nth-child(1)');
+    var slot2Card = document.querySelector('.event-cards .event-card-container:nth-child(2)');
+    var slot3Card = document.querySelector('.event-cards .event-card-container:nth-child(3)');
+    var slot4Card = document.querySelector('.event-cards .event-card-container:nth-child(4)');
+
+    if (eventCardQuantity = 0) {
+        eventCards.prepend(eventCardContainer);
+    }
+    else if (slot1Card && slot1Card.classList.contains('empty')) {
+        slot1Card.remove();
+        eventCards.prepend(eventCardContainer);
+    }
+    else if (slot2Card && slot2Card.classList.contains('empty')) {
+        slot2Card.remove();
+        eventCards.prepend(eventCardContainer);
+    }    
+    else if (slot3Card && slot3Card.classList.contains('empty')) {
+        slot3Card.remove();
+        eventCards.prepend(eventCardContainer);
+    }    
+    else if (slot4Card && slot4Card.classList.contains('empty')) {
+        slot4Card.remove();
+        eventCards.prepend(eventCardContainer);
+    }
+
+    eventCards.prepend(eventCardContainer);
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
+}
+
+function removeEventCard(e) {
+    e.preventDefault();
+
+    console.log(e.target.closest('.event-card-container'));
+
+    // Check if the event has already been marked as removed
+    if (e.target.parentElement.dataset.removed) {
+        return;
+    }
+
+    var eventCardContainer = e.target.closest('.event-card-container');
+    if (eventCardContainer) {
+        eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
+
+        var focusDifficulty = eventCardContainer.dataset.active ? 4 : 4 - Array.prototype.indexOf.call(eventCardContainer.parentElement.children, eventCardContainer);
+        if (confirm(`Perform a Difficulty ${focusDifficulty} Focus Check`)) {
+            eventCardContainer.querySelector('img').src = "images/events/resolved.png";
+            eventCardContainer.classList.add('empty');
+            eventCardContainer.dataset.removed = true;            
+        } else {            
+            eventCardContainer.querySelector('img').src = `images/events/${eventCardContainer.dataset.filename}`;
+            eventCardContainer.classList.remove('empty');
+            eventCardContainer.dataset.removed = false;
+        };
+    }
+}
+
+function activateEventCard(e) {
+    e.preventDefault();
+
+    // Check if the event has already been marked as removed
+    if (e.target.parentElement.dataset.removed) {
+        return;
+    }
+    
+    var eventCardContainer = e.target.closest('.event-card-container');
+    if (eventCardContainer) {
+        eventCardContainer.dataset.active = true;
+        document.querySelector('.active-event-cards').prepend(eventCardContainer);    
+        eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
+    }    
 }
 
 function burnEventCard(e, image) {
@@ -210,12 +328,15 @@ function burnEventCard(e, image) {
     }
 
     e.target.src = "images/events/resolved.png";
+
+    e.target.parentElement.classList.add('empty');
     eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== e.target.dataset.filename; }) : [];
 }
 
 function unburnEventCard(e, image) {
     e.preventDefault();
     e.target.src = `images/events/${e.target.dataset.filename}`;
+    e.target.parentElement.classList.remove('empty');
     eventDeckPool.push({ image: e.target.dataset.filename });
 }
 
@@ -278,330 +399,330 @@ function shuffleCards(array) {
 var heroInitiativeCards = [
     {
         name: 'Clan Hamato Turtle Michelangelo',
-        image: 'Michelangelo.png'
+        image: 'Michelangelo.jpg'
     },
     {
         name: 'Clan Hamato Turtle Donatello',
-        image: 'Donatello.png'
+        image: 'Donatello.jpg'
     },
     {
         name: 'Clan Hamato Turtle Leonardo',
-        image: 'Leonardo.png'
+        image: 'Leonardo.jpg'
     },
     {
         name: 'Clan Hamato Turtle Raphael',
-        image: 'Raphael.png'
+        image: 'Raphael.jpg'
     },
     {
         name: 'Clan Hamato Casey Jones',
-        image: 'Casey Jones.png'
+        image: 'Casey Jones.jpg'
     },
     {
         name: 'Clan Hamato April O\'Neil',
-        image: 'April ONeil.png'
+        image: 'April ONeil.jpg'
     },
     {
         name: 'Clan Hamato Splinter',
-        image: 'Splinter.png'
+        image: 'Splinter.jpg'
     },
     {
         name: 'Stockgen Baxter',
-        image: 'Baxter hero.png'
+        image: 'Baxter hero.jpg'
     },
     {
         name: 'Foot Clan Bebop',
-        image: 'Bebop hero.png'
+        image: 'Bebop hero.jpg'
     },
     {
         name: 'Foot Clan Rocksteady',
-        image: 'Rocksteady hero.png'
+        image: 'Rocksteady hero.jpg'
     },
     {
         name: 'Clan Hamato Stan Saki Donatello',
-        image: 'Donatello alt.png'
+        image: 'Donatello alt.jpg'
     },
     {
         name: 'Clan Hamato Stan Saki Leonardo',
-        image: 'Leonardo alt.png'
+        image: 'Leonardo alt.jpg'
     },
     {
         name: 'Clan Hamato Stan Saki Michelangelo',
-        image: 'Michelangelo alt.png'
+        image: 'Michelangelo alt.jpg'
     },
     {
         name: 'Clan Hamato Stan Saki Raphael',
-        image: 'Raphael alt.png'
+        image: 'Raphael alt.jpg'
     },
     {
         name: 'Foot Clan The Foot Clan',
-        image: 'Foot Clan.png'
+        image: 'Foot Clan.jpg'
     },
     {
         name: 'Clan Hamato Hamato Sons',
-        image: 'Hamato Sons.png'
+        image: 'Hamato Sons.jpg'
     },
     {
         name: 'Clan Hamato Hamato Yoshi',
-        image: 'Hamato Yoshi.png'
+        image: 'Hamato Yoshi.jpg'
     },
     {
         name: 'Mutanimal Herman',
-        image: 'Herman.png'
+        image: 'Herman.jpg'
     },
     {
         name: 'Purple Dragon Hun',
-        image: 'Hun hero.png'
+        image: 'Hun hero.jpg'
     },
     {
         name: 'Foot Clan Karai',
-        image: 'Karai hero.png'
+        image: 'Karai hero.jpg'
     },
     {
         name: 'Foot Clan Koya',
-        image: 'Koya.png'
+        image: 'Koya.jpg'
     },
     {
         name: 'Mutanimal Man Ray',
-        image: 'Man Ray.png'
+        image: 'Man Ray.jpg'
     },
     {
         name: 'Mutanimal Michelangelo Mutanimal',
-        image: 'Michelangelo mutanimal.png'
+        image: 'Michelangelo mutanimal.jpg'
     },
     {
         name: 'Mutanimal Mondo Gecko',
-        image: 'Mondo Gecko.png'
+        image: 'Mondo Gecko.jpg'
     },
     {
         name: 'Unaffiliated Old Hob',
-        image: 'Old Hob hero.png'
+        image: 'Old Hob hero.jpg'
     },
     {
         name: 'Mutanimal Old Hob Mutanimal',
-        image: 'Old Hob mutanimal.png'
+        image: 'Old Hob mutanimal.jpg'
     },
     {
         name: 'Clan Hamato Oroku Saki',
-        image: 'Oroku Saki.png'
+        image: 'Oroku Saki.jpg'
     },
     {
         name: 'Mutanimal Pigeon Pete',
-        image: 'Pigeon Pete.png'
+        image: 'Pigeon Pete.jpg'
     },
     {
         name: 'Purple Dragons',
-        image: 'Purple Dragon hero.png'
+        image: 'Purple Dragon hero.jpg'
     },
     {
         name: 'Clan Hamato Turtle Raphael Loner',
-        image: 'Raphael loner.png'
+        image: 'Raphael loner.jpg'
     },
     {
         name: 'Mutanimal Sally Pride',
-        image: 'Sally Pride.png'
+        image: 'Sally Pride.jpg'
     },
     {
         name: 'Unaffiliated Slash',
-        image: 'Slash.png'
+        image: 'Slash.jpg'
     },
     {
         name: 'Foot Clan Shredder',
-        image: 'Shredder hero.png'
+        image: 'Shredder hero.jpg'
     },
     {
         name: 'Unaffiliated Usagi',
-        image: 'Usagi.png'
+        image: 'Usagi.jpg'
     },
     {
         name: 'Clan Hamato Turtle Jennika',
-        image: 'Jennika.png'
+        image: 'Jennika.jpg'
     },
     {
         name: 'Unaffiliated Metalhead',
-        image: 'Metalhead hero.png'
+        image: 'Metalhead hero.jpg'
     },
     {
         name: 'Purple Dragon Angel Bridge',
-        image: 'Angel Bridge.png'
+        image: 'Angel Bridge.jpg'
     }
 ]
 
 var villainInitiativeCards = [
     {
         name: 'Foot Leader Alopex',
-        image: 'Alopex.png'
+        image: 'Alopex.jpg'
     },
     {
         name: 'Stockgen Leader Baxter',
-        image: 'Baxter.png'
+        image: 'Baxter.jpg'
     },
     {
         name: 'Foot Leader Bebop & Rocksteady',
-        image: 'Bebop and Rocksteady.png'
+        image: 'Bebop and Rocksteady.jpg'
     },
     {
         name: 'Foot Leader Bebop',
-        image: 'Bebop.png'
+        image: 'Bebop.jpg'
     },
     {
         name: 'Foot Leader Rocksteady',
-        image: 'Rocksteady.png'
+        image: 'Rocksteady.jpg'
     },
     {
         name: 'Deviations Donatello',
-        image: 'Donatello Villain.png'
+        image: 'Donatello Villain.jpg'
     },
     {
         name: 'Deviations Leonardo',
-        image: 'Leonardo Villain.png'
+        image: 'Leonardo Villain.jpg'
     },
     {
         name: 'Deviations Michelangelo',
-        image: 'Michelangelo Villain.png'
+        image: 'Michelangelo Villain.jpg'
     },
     {
         name: 'Deviations Raphael',
-        image: 'Raphael Villain.png'
+        image: 'Raphael Villain.jpg'
     },
     {
         name: 'Foot Leader Leonardo',
-        image: 'Leonardo chunin.png'
+        image: 'Leonardo chunin.jpg'
     },
     {
         name: 'Stockgen Minion Flyborgs',
-        image: 'Flyborgs.png'
+        image: 'Flyborgs.jpg'
     },
     {
         name: 'Stockgen Minion Flying Mouser',
-        image: 'Flying Mouser.png'
+        image: 'Flying Mouser.jpg'
     },
     {
         name: 'Foot Minion Assassin',
-        image: 'Foot Assassin.png'
+        image: 'Foot Assassin.jpg'
     },
     {
         name: 'Foot Minion Bruiser',
-        image: 'Foot Bruiser.png'
+        image: 'Foot Bruiser.jpg'
     },
     {
         name: 'Foot Minion Elite',
-        image: 'Foot Elite.png'
+        image: 'Foot Elite.jpg'
     },
     {
         name: 'Foot Minion Elite',
-        image: 'Foot Elite alt.png'
+        image: 'Foot Elite alt.jpg'
     },
     {
         name: 'Foot Minion Ninja',
-        image: 'Foot Ninja.png'
+        image: 'Foot Ninja.jpg'
     },
     {
         name: 'Foot Minion Ninja',
-        image: 'Foot Ninja alt.png'
+        image: 'Foot Ninja alt.jpg'
     },
     {
         name: 'Purple Dragon Leader Hun',
-        image: 'Hun.png'
+        image: 'Hun.jpg'
     },
     {
         name: 'Foot Leader Karai',
-        image: 'Karai.png'
+        image: 'Karai.jpg'
     },
     {
         name: 'Unaffiliated Leader Kitsune',
-        image: 'Kitsune.png'
+        image: 'Kitsune.jpg'
     },
     {
         name: 'Foot Clan Koya',
-        image: 'Koya villain.png'
+        image: 'Koya villain.jpg'
     },
     {
         name: 'Unaffiliated Leader Krang',
-        image: 'Krang.png'
+        image: 'Krang.jpg'
     },
     {
         name: 'Unaffiliated Leader Leatherhead',
-        image: 'Leatherhead.png'
+        image: 'Leatherhead.jpg'
     },
     {
         name: 'Stockgen Minion Mega Mouser',
-        image: 'Mega Mouser.png'
+        image: 'Mega Mouser.jpg'
     },
     {
         name: 'Unaffiliated Leader Metalhead',
-        image: 'Metalhead.png'
+        image: 'Metalhead.jpg'
     },
     {
         name: 'Stockgen Minion Mouser',
-        image: 'Mouser.png'
+        image: 'Mouser.jpg'
     },
     {
         name: 'Unaffiliated Leader Old Hob',
-        image: 'Old Hob.png'
+        image: 'Old Hob.jpg'
     },
     {
         name: 'Purple Dragon Minion',
-        image: 'Purple Dragon.png'
+        image: 'Purple Dragon.jpg'
     },
     {
         name: 'Unaffiliated Leader Rahzar',
-        image: 'Rahzar.png'
+        image: 'Rahzar.jpg'
     },
     {
         name: 'Unaffiliated Leader Rat King',
-        image: 'Rat King.png'
+        image: 'Rat King.jpg'
     },
     {
         name: 'Unaffiliated Leader Savage Slash',
-        image: 'Savage Slash.png'
+        image: 'Savage Slash.jpg'
     },
     {
         name: 'Savate Minion Ninja',
-        image: 'Savate Ninja.png'
+        image: 'Savate Ninja.jpg'
     },
     {
         name: 'Unaffiliated Leader Scratch',
-        image: 'Scratch.png'
+        image: 'Scratch.jpg'
     },
     {
         name: 'Foot Clan Leader Shredder',
-        image: 'Shredder.png'
+        image: 'Shredder.jpg'
     },
     {
         name: 'Stockgen Leader Stockman Fly',
-        image: 'Stockman Fly.png'
+        image: 'Stockman Fly.jpg'
     },
     {
         name: 'Unaffiliated Leader Stranger',
-        image: 'Stranger.png'
+        image: 'Stranger.jpg'
     },
     {
         name: 'Unaffiliated Leader Stranger',
-        image: 'Stranger alt.png'
+        image: 'Stranger alt.jpg'
     },
     {
         name: 'Unaffiliated Leader Stranger',
-        image: 'Stranger alt2.png'
+        image: 'Stranger alt2.jpg'
     },
     {
         name: 'Unaffiliated Minion Thug Brawler',
-        image: 'Thug Brawler.png'
+        image: 'Thug Brawler.jpg'
     },
     {
         name: 'Unaffiliated Minion Thug Gunner',
-        image: 'Thug Gunner.png'
+        image: 'Thug Gunner.jpg'
     },
     {
         name: 'Unaffiliated Leader Tokka',
-        image: 'Tokka.png'
+        image: 'Tokka.jpg'
     },
     {
         name: 'Unaffiliated Leader Wyrm',
-        image: 'Wyrm.png'
+        image: 'Wyrm.jpg'
     },
     {
         name: 'Savate Leader Victor',
-        image: 'Victor.png'
+        image: 'Victor.jpg'
     }
 ];
 
@@ -609,307 +730,307 @@ var eventCards = [
     {
         name: 'Event!',
         description: '',
-        image: 'base1.png',
+        image: 'base1.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base2.png',
+        image: 'base2.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base3.png',
+        image: 'base3.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base4.png',
+        image: 'base4.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base5.png',
+        image: 'base5.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base6.png',
+        image: 'base6.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base7.png',
+        image: 'base7.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base8.png',
+        image: 'base8.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'base9.png',
+        image: 'base9.jpg',
         deck: 'Base'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero1.png',
+        image: 'hero1.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero2.png',
+        image: 'hero2.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero3.png',
+        image: 'hero3.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero4.png',
+        image: 'hero4.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero5.png',
+        image: 'hero5.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero6.png',
+        image: 'hero6.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero7.png',
+        image: 'hero7.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hero8.png',
+        image: 'hero8.jpg',
         deck: 'Hero'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionred1.png',
+        image: 'minionred1.jpg',
         deck: 'Red Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionred2.png',
+        image: 'minionred2.jpg',
         deck: 'Red Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionred3.png',
+        image: 'minionred3.jpg',
         deck: 'Red Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionred4.png',
+        image: 'minionred4.jpg',
         deck: 'Red Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionblue1.png',
+        image: 'minionblue1.jpg',
         deck: 'Blue Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionblue2.png',
+        image: 'minionblue2.jpg',
         deck: 'Blue Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionblue3.png',
+        image: 'minionblue3.jpg',
         deck: 'Blue Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionblue4.png',
+        image: 'minionblue4.jpg',
         deck: 'Blue Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionblue5.png',
+        image: 'minionblue5.jpg',
         deck: 'Blue Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'minionblue6.png',
+        image: 'minionblue6.jpg',
         deck: 'Blue Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mixed1.png',
+        image: 'mixed1.jpg',
         deck: 'Mixed Leader/Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mixed2.png',
+        image: 'mixed2.jpg',
         deck: 'Mixed Leader/Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mixed3.png',
+        image: 'mixed3.jpg',
         deck: 'Mixed Leader/Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mixed4.png',
+        image: 'mixed4.jpg',
         deck: 'Mixed Leader/Minion'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'leaderpurple1.png',
+        image: 'leaderpurple1.jpg',
         deck: 'Leader'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'leaderpurple2.png',
+        image: 'leaderpurple2.jpg',
         deck: 'Leader'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'leaderpurple3.png',
+        image: 'leaderpurple3.jpg',
         deck: 'Leader'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'leaderpurple4.png',
+        image: 'leaderpurple4.jpg',
         deck: 'Leader'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'footclan1.png',
+        image: 'footclan1.jpg',
         deck: 'Foot Clan'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'footclan2.png',
+        image: 'footclan2.jpg',
         deck: 'Foot Clan'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'footclan3.png',
+        image: 'footclan3.jpg',
         deck: 'Foot Clan'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'footclan4.png',
+        image: 'footclan4.jpg',
         deck: 'Foot Clan'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'beboprocksteady1.png',
+        image: 'beboprocksteady1.jpg',
         deck: 'Bebop and Rocksteady'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'beboprocksteady2.png',
+        image: 'beboprocksteady2.jpg',
         deck: 'Bebop and Rocksteady'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'baxter1.png',
+        image: 'baxter1.jpg',
         deck: 'Baxter'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'baxter2.png',
+        image: 'baxter2.jpg',
         deck: 'Baxter'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mutanimals1.png',
+        image: 'mutanimals1.jpg',
         deck: 'Mutanimals'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mutanimals2.png',
+        image: 'mutanimals2.jpg',
         deck: 'Mutanimals'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mutanimals3.png',
+        image: 'mutanimals3.jpg',
         deck: 'Mutanimals'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'mutanimals4.png',
+        image: 'mutanimals4.jpg',
         deck: 'Mutanimals'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'shredder1.png',
+        image: 'shredder1.jpg',
         deck: 'Shredder'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'shredder2.png',
+        image: 'shredder2.jpg',
         deck: 'Shredder'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'oldhob1.png',
+        image: 'oldhob1.jpg',
         deck: 'Old Hob'
     },
     {
         name: 'Event!',
         description: '',
-        image: 'hun1.png',
+        image: 'hun1.jpg',
         deck: 'Hun'
     }
 ];

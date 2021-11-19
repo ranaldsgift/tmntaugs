@@ -116,8 +116,8 @@ function addEventToInitiativeDeck() {
         return;
     }
 
-    initiativeDeck.push(`initiative${eventCount+1}.png`);
-    initiativeDeckPool.push(`initiative${eventCount+1}.png`);
+    initiativeDeck.push(`initiative${eventCount+1}.jpg`);
+    initiativeDeckPool.push(`initiative${eventCount+1}.jpg`);
     initiativeDeck = shuffleCards(initiativeDeck.slice());
     document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length;
     document.querySelector('.initiative-event-quantity').dataset.quantity = eventCount + 1;
@@ -129,7 +129,7 @@ function addEventToInitiativeDiscard() {
         return;
     }
 
-    initiativeDeckPool.push(`initiative${eventCount+1}.png`);
+    initiativeDeckPool.push(`initiative${eventCount+1}.jpg`);
     document.querySelector('.initiative-event-quantity').dataset.quantity = eventCount + 1;
 }
 
@@ -233,19 +233,21 @@ function drawEventCard() {
     eventButtonContainer.appendChild(activateEventButton);
     eventButtonContainer.appendChild(removeEventButton);
 
-    var eventImage = document.createElement('img');
-    eventImage.src = `images/events/${eventDrawn.image}`;
-    eventImage.role = 'button';
+    var eventImage = document.createElement('div');
+    eventImage.style.backgroundImage = `url('images/events/${eventDrawn.image}')`;
+    eventImage.classList.add('card-background');
+    eventImage.classList.add('card-shadow');
 
-/*     eventImage.addEventListener('click', burnEventCard);
-    eventImage.addEventListener('contextmenu', unburnEventCard);
-    eventImage.addEventListener('middleclick', moveEventToActivePool); */
+    var zoomButton = document.createElement('span');
+    zoomButton.innerHTML = '+';
+    zoomButton.classList.add('magnify-button');
+    zoomButton.addEventListener('click', magnifyCard);
 
     eventCardContainer.appendChild(eventButtonContainer);
     eventCardContainer.appendChild(eventImage);
+    eventCardContainer.appendChild(zoomButton);
 
     var eventCardQuantity = document.querySelectorAll('.event-cards .event-card-container').length;
-    var resolvedEventCardQuantity = document.querySelectorAll('.event-cards .event-card-container').length;
 
     var slot1Card = document.querySelector('.event-cards .event-card-container:nth-child(1)');
     var slot2Card = document.querySelector('.event-cards .event-card-container:nth-child(2)');
@@ -274,6 +276,20 @@ function drawEventCard() {
 
     eventCards.prepend(eventCardContainer);
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
+}
+
+function magnifyCard(e) {
+    var cardContainer = e.target.closest('.event-card-container');
+
+    if (!cardContainer) {
+        return;
+    }
+
+    if (cardContainer.classList.contains('magnify')) {
+        cardContainer.classList.remove('magnify');
+    } else {
+        cardContainer.classList.add('magnify');
+    }
 }
 
 function removeEventCard(e) {
@@ -312,10 +328,13 @@ function activateEventCard(e) {
     }
     
     var eventCardContainer = e.target.closest('.event-card-container');
-    if (eventCardContainer) {
-        eventCardContainer.dataset.active = true;
-        document.querySelector('.active-event-cards').prepend(eventCardContainer);    
-        eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
+
+    if (confirm(`Move this Event Card from the queue to a character sheet?`)) {
+        if (eventCardContainer) {
+            eventCardContainer.dataset.active = true;
+            document.querySelector('.active-event-cards').prepend(eventCardContainer);    
+            eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
+        }
     }    
 }
 

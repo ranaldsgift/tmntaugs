@@ -274,3 +274,44 @@ span.initiative-event-quantity {
     flex-wrap: wrap;
     column-gap: 5px;
 }
+
+.card-background {
+    background: url('images/events/baxter2.jpg');
+    height: 400px;
+    width: 285px;
+    background-size: cover;
+}
+
+.magnify .card-background {
+    height: 400px;
+    width: 285px;
+    background-size: 440px;
+    background-position: center -150px;
+} 
+
+.card-shadow {
+    border-radius: 6px;
+    box-shadow: 1px 1px 5px black;
+}
+
+span.magnify-button {
+    position: absolute;
+    right: 5px;
+    top: 35px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    border: 3px solid #ffffff;
+    border-radius: 14px;
+    width: 15px;
+    height: 15px;
+    display: grid;
+    align-content: center;
+    text-align: center;
+}
+
+.event-card-container {
+    position: relative;
+}

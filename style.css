@@ -54,7 +54,7 @@ body {
     column-gap: 1rem;
 }
 
-.event-cards>*:nth-child(n+5) {
+.event-cards .event-card-container:nth-child(n+6) {
     display: none;
 }
 
@@ -213,10 +213,9 @@ span.initiative-deck-quantity, span.event-deck-quantity {
 .event-button-container span:first-child {
     width: 100%;
     text-align: center;
-    box-shadow: 1px 0 0 0;
 }
 
-.event-button-container span:hover {
+.event-button-container span:not(.label):hover {
     cursor: pointer;
     text-decoration: underline;
 }
@@ -314,4 +313,61 @@ span.magnify-button {
 
 .event-card-container {
     position: relative;
+}
+
+.event-deck[data-showdiscards='true'] .event-cards .event-card-container:nth-child(n+6) {
+    display: block;
+    padding: 10px;
+    border: 1px dashed #673ab7;
+}
+
+.event-deck[data-showdiscards='true'] .event-cards .event-card-container:nth-child(n+6) span.magnify-button {
+    right: 15px;
+    top: 45px;
+}
+
+span.show-event-discards, span.inspect-initiative {
+    position: absolute;
+    left: 5px;
+    bottom: 5px
+}
+
+span.button {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    background: #673ab7;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.counter-container {
+    display: grid;
+    grid-auto-flow: column;
+    width: 100;
+    text-align: center;
+}
+
+.initiative-inspection {
+    display: none;
+}
+
+.initiative-inspection-cards img {
+    max-height: 400px;
+    max-width: 367px;
+}
+
+.initiative-inspection.show {
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: #008f61;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px black;
+    z-index: 2;
 }

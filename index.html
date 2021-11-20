@@ -3,6 +3,7 @@
         <title>TMNT Board Game Assistant</title>
         <script src="script.js"></script>
         <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         <h2 class="setup-header" onclick="toggleSetup()" style="cursor: pointer; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Hide Setup -</h2>
@@ -32,7 +33,6 @@
                 <span class="initiative-event-quantity" data-quantity="0">Number of Events in Deck:</span>
             </div>
             <div class="initiative-deck">
-                <!-- <button onclick="drawInitiativeCard()">Draw Initiative Card</button> -->
                 <div class="initiative-draw-deck draw-deck">
                     <div class="event-button-container">
                         <span onclick="shuffleInitiativeDeck()" class="shuffle-deck-button">Shuffle Deck</span>
@@ -41,6 +41,7 @@
                     <div class="draw-deck-image-container">
                         <span class="initiative-deck-quantity">0</span>
                         <span class="shuffle-initiative-indicator">Shuffled</span>
+                        <span class="inspect-initiative button" onclick="inspectInitiativeDeck(this)">Inspect Top 3 Cards</span>
                         <img onclick="drawInitiativeCard()" src="images/initiative/back.jpg">
                     </div>
                 </div>
@@ -49,21 +50,26 @@
                 <div class="active-event-cards card-pile">
                 </div>
             </div>
-            <div class="event-deck">
-                <div class="event-draw-deck draw-deck">
-                    <div class="event-button-container">
-                        <span onclick="shuffleEventDeck()" class="shuffle-deck-button">Shuffle Deck</span>
-                        <span onclick="shuffleAllEventCards()" class="shuffle-all-button">Shuffle All Cards</span>
-                    </div>
-                    <div class="draw-deck-image-container">
-                        <span class="event-deck-quantity">0</span>
-                        <span class="shuffle-events-indicator">Shuffled</span>
-                        <img onclick="drawEventCard()" src="images/events/back.jpg">
-                    </div>
-                </div>
+            <div class="event-deck" data-showdiscards="false">
                 <div class="event-cards card-pile">
+                    <div class="event-draw-deck draw-deck">
+                        <div class="event-button-container">
+                            <span onclick="shuffleEventDeck()" class="shuffle-deck-button">Shuffle Deck</span>
+                            <span onclick="shuffleAllEventCards()" class="shuffle-all-button">Shuffle All Cards</span>
+                        </div>
+                        <div class="draw-deck-image-container">
+                            <span class="event-deck-quantity">0</span>
+                            <span class="shuffle-events-indicator">Shuffled</span>
+                            <span class="show-event-discards button" onclick="toggleEventDiscards(this)">Show Discards</span>
+                            <img onclick="drawEventCard()" src="images/events/back.jpg">
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="initiative-inspection">
+            <span>Click the cards in the order you would like them to be returned to the deck. The card you click LAST will be on the TOP of the deck.</span>
+            <div class="initiative-inspection-cards"></div>
         </div>
     </body>
 </html>

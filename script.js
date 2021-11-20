@@ -21,95 +21,6 @@ function toggleSetup() {
     }
 }
 
-/* function addToSelectedEvents() {
-    var selectedEventDeck = document.getElementById('selectEvents').value;
-    if (selectedEventDecks.includes(selectedEventDeck)) {
-        return;
-    }
-    selectedEventDecks.push(selectedEventDeck);
-    console.log(selectedEventDecks);
-
-    document.getElementById('selectedEvents').innerHTML = selectedEventDecks.join(", ");
-}
-
-function removeFromSelectedEvents() {
-    var selectedEventDeck = document.getElementById('selectEvents').value;
-    if (!selectedEventDecks.includes(selectedEventDeck)) {
-        return;
-    }
-    selectedEventDecks = selectedEventDecks.filter(deck => { return deck !== selectedEventDeck });
-
-    document.getElementById('selectedEvents').innerHTML = selectedEventDecks.join();
-}
-
-function addToSelectedInitiatives() {
-    var selectedInitiative = document.getElementById('selectInitiatives').value;
-    if (selectedInitiativeCards.includes(selectedInitiative)) {
-        return;
-    }
-    selectedInitiativeCards.push(selectedInitiative);
-
-    document.getElementById('selectedInitiatives').innerHTML = selectedInitiativeCards.join(", ");
-}
-
-function removeFromSelectedInitiatives() {
-    var selectedInitiative = document.getElementById('selectInitiatives').value;
-    if (!selectedInitiativeCards.includes(selectedInitiative)) {
-        return;
-    }
-    selectedInitiativeCards = selectedInitiativeCards.filter(card => { return card !== selectedInitiative });
-
-    document.getElementById('selectedInitiatives').innerHTML = selectedInitiativeCards.join(", ");
-}
-
-// Setup the Event deck based on the specified parameters
-function setupEventDeck() {
-    document.querySelector('.event-cards').innerHTML = '';
-
-    eventDeck = [];
-    selectedEventCards = [];
-    selectedEventDecks.forEach(deck => {
-        var filteredCards = eventCards.filter((card) => { return card.type === deck; });
-        selectedEventCards.push(...filteredCards);
-    });
-
-    if (selectedEventCards.length === 0) {
-        return;
-    }
-
-    eventDeck = shuffleCards(selectedEventCards.slice());
-    eventDeckPool = eventDeck.slice();
-    document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
-}
-
-// Setup the Initiative deck based on the specified parameters
-function setupInitiativeDeck() {
-    document.querySelector('.initiative-cards').innerHTML = '';
-
-    initiativeDeck = [];
-    var selectedInitiativeDeck = [];
-    selectedInitiativeCards.forEach(selectedCard => {
-        selectedInitiativeDeck.push(`${selectedCard}.png`);
-    });
-
-    // If we aren't adding events, just assign the selected cards to the active initiative deck
-    eventCardQuantity = parseInt(document.getElementById('selectEventCardQuantity').value);
-
-    if (eventCardQuantity > 0) {
-        for (var i = 0; i < eventCardQuantity; i++) {
-            selectedInitiativeDeck.push(`initiative${i+1}.png`);
-        }
-    }
-
-    initiativeDeck = shuffleCards(selectedInitiativeDeck.slice());
-    initiativeDeckPool = initiativeDeck.slice();
-    document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length;
-
-    initiativeDeck = shuffleCards(initiativeDeckPool.slice());
-    initiativeDeckPool = initiativeDeck.slice();
-    document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length; 
-} */
-
 function addEventToInitiativeDeck() {
     var eventCount = initiativeDeckPool.filter(card => { return card.includes('initiative'); }).length;
     if (eventCount > 4) {
@@ -223,14 +134,36 @@ function drawEventCard() {
     removeEventButton.classList.add('remove-event-button');
     removeEventButton.addEventListener('click', removeEventCard);
 
-    var activateEventButton = document.createElement('span');
-    activateEventButton.innerHTML = 'Activate'
-    activateEventButton.classList.add('activate-event-button');
-    activateEventButton.addEventListener('click', activateEventCard);
-
     var eventButtonContainer = document.createElement('div');
     eventButtonContainer.classList.add('event-button-container');
-    eventButtonContainer.appendChild(activateEventButton);
+
+    if (eventDrawn.activate) {
+        var activateEventButton = document.createElement('span');
+        activateEventButton.innerHTML = 'Activate'
+        activateEventButton.classList.add('activate-event-button');
+        activateEventButton.addEventListener('click', activateEventCard);
+        eventButtonContainer.appendChild(activateEventButton);
+    }
+
+    if (eventDrawn.counter) {
+        var counterContainer = document.createElement('div');
+        counterContainer.classList.add('counter-container');
+        var counterDecrementButton = document.createElement('span');
+        counterDecrementButton.addEventListener('click', decrementEventCounter);
+        counterDecrementButton.innerHTML = '-';
+        var counterValue = document.createElement('span');
+        counterValue.innerHTML = eventDrawn.counterValue;
+        counterValue.classList.add('label');
+        var counterIncrementButton = document.createElement('span');
+        counterIncrementButton.addEventListener('click', incrementEventCounter);
+        counterIncrementButton.innerHTML = '+';
+
+        counterContainer.appendChild(counterDecrementButton);
+        counterContainer.appendChild(counterValue);
+        counterContainer.appendChild(counterIncrementButton);
+        eventButtonContainer.appendChild(counterContainer);
+    }
+
     eventButtonContainer.appendChild(removeEventButton);
 
     var eventImage = document.createElement('div');
@@ -238,14 +171,14 @@ function drawEventCard() {
     eventImage.classList.add('card-background');
     eventImage.classList.add('card-shadow');
 
-    var zoomButton = document.createElement('span');
-    zoomButton.innerHTML = '+';
-    zoomButton.classList.add('magnify-button');
-    zoomButton.addEventListener('click', magnifyCard);
+    var magnifyButton = document.createElement('span');
+    magnifyButton.innerHTML = '+';
+    magnifyButton.classList.add('magnify-button');
+    magnifyButton.addEventListener('click', magnifyCard);
 
     eventCardContainer.appendChild(eventButtonContainer);
     eventCardContainer.appendChild(eventImage);
-    eventCardContainer.appendChild(zoomButton);
+    eventCardContainer.appendChild(magnifyButton);
 
     var eventCardQuantity = document.querySelectorAll('.event-cards .event-card-container').length;
 
@@ -254,7 +187,7 @@ function drawEventCard() {
     var slot3Card = document.querySelector('.event-cards .event-card-container:nth-child(3)');
     var slot4Card = document.querySelector('.event-cards .event-card-container:nth-child(4)');
 
-    if (eventCardQuantity = 0) {
+    if (eventCardQuantity === 0) {
         eventCards.prepend(eventCardContainer);
     }
     else if (slot1Card && slot1Card.classList.contains('empty')) {
@@ -274,8 +207,32 @@ function drawEventCard() {
         eventCards.prepend(eventCardContainer);
     }
 
-    eventCards.prepend(eventCardContainer);
+    var eventDrawDeck = document.querySelector('.event-draw-deck');
+    eventDrawDeck.parentNode.insertBefore(eventCardContainer, eventDrawDeck.nextSibling);
+    //eventCards.prepend(eventCardContainer);
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
+}
+
+function incrementEventCounter(e) {
+    var counterLabel = e.target.parentElement.querySelector('.label');
+    counterLabel.innerHTML = parseInt(counterLabel.innerHTML) + 1;
+}
+
+function decrementEventCounter(e) {
+    var counterLabel = e.target.parentElement.querySelector('.label');
+    counterLabel.innerHTML = parseInt(counterLabel.innerHTML) - 1;
+}
+
+function toggleEventDiscards(e) {
+    var eventDeck = document.querySelector('.event-deck');
+
+    if (eventDeck.dataset.showdiscards === 'true') {
+        eventDeck.dataset.showdiscards = false;
+        e.innerHTML = 'Show Discards';
+    } else {
+        eventDeck.dataset.showdiscards = true;
+        e.innerHTML = 'Hide Discards';
+    }
 }
 
 function magnifyCard(e) {
@@ -308,11 +265,11 @@ function removeEventCard(e) {
 
         var focusDifficulty = eventCardContainer.dataset.active ? 4 : 4 - Array.prototype.indexOf.call(eventCardContainer.parentElement.children, eventCardContainer);
         if (confirm(`Perform a Difficulty ${focusDifficulty} Focus Check`)) {
-            eventCardContainer.querySelector('img').src = "images/events/resolved.jpg";
+            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url("images/events/resolved.jpg")`;
             eventCardContainer.classList.add('empty');
             eventCardContainer.dataset.removed = true;            
         } else {            
-            eventCardContainer.querySelector('img').src = `images/events/${eventCardContainer.dataset.filename}`;
+            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url('images/events/${eventCardContainer.dataset.filename}'')`;
             eventCardContainer.classList.remove('empty');
             eventCardContainer.dataset.removed = false;
         };
@@ -816,7 +773,9 @@ var eventCards = [
         name: 'Event!',
         description: '',
         image: 'hero3.jpg',
-        deck: 'Hero'
+        deck: 'Hero',
+        counter: true,
+        counterValue: 5
     },
     {
         name: 'Event!',
@@ -840,13 +799,17 @@ var eventCards = [
         name: 'Event!',
         description: '',
         image: 'hero7.jpg',
-        deck: 'Hero'
+        deck: 'Hero',
+        counter: true,
+        counterValue: 5
     },
     {
         name: 'Event!',
         description: '',
         image: 'hero8.jpg',
-        deck: 'Hero'
+        deck: 'Hero',
+        counter: true,
+        counterValue: 5
     },
     {
         name: 'Event!',
@@ -1177,4 +1140,40 @@ function removeInitiativeCardFromPool(imageName) {
         initiativeDeck.splice(initiativeDeck.indexOf(imageName), 1);
     }
     document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length;
+}
+
+function inspectInitiativeDeck(e) {
+    var initiativeInspectionContainer = document.querySelector('.initiative-inspection');
+    initiativeInspectionContainer.classList.add('show');
+
+    var initiativeInspectionCardsContainer = document.querySelector('.initiative-inspection-cards');
+    initiativeInspectionCardsContainer.innerHTML = '';
+    
+    for (var i = 0; i < 3; i++) {
+        var initiativeCard = initiativeDeck[initiativeDeck.length - 1 - i];
+
+        if (!initiativeCard) {
+            return;
+        }
+
+        var initiativeImage = document.createElement('img');
+        initiativeImage.dataset.filename = initiativeCard;
+        initiativeImage.src = `images/initiative/${initiativeCard}`;
+        initiativeImage.addEventListener('click', returnToInitiativeDeck);
+
+        initiativeInspectionCardsContainer.prepend(initiativeImage);
+    }
+
+    var endIndex = initiativeDeck.length > 2 ? initiativeDeck.length - 3 : 0;
+    initiativeDeck = initiativeDeck.slice(0, endIndex);
+}
+
+function returnToInitiativeDeck(e) {
+    var initiativeImage = e.target.dataset.filename;
+    initiativeDeck.push(initiativeImage);
+    e.target.remove();
+
+    if (document.querySelector('.initiative-inspection-cards').children.length === 0) {
+        document.querySelector('.initiative-inspection').classList.remove('show');
+    }
 }

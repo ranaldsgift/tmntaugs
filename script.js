@@ -97,7 +97,9 @@ function shuffleEventDeck() {
 function shuffleAllEventCards() {
     eventDeck = shuffleCards(eventDeckPool.slice());
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
-    document.querySelector('.event-cards').innerHTML = '';
+    document.querySelectorAll('.event-cards .event-card-container:not(.draw-deck)').forEach((eventCard) => {
+        eventCard.remove();
+    });
     
     var eventDrawDeck = document.querySelector('.event-draw-deck');
     if (eventDrawDeck) {
@@ -109,7 +111,7 @@ function shuffleAllEventCards() {
 function drawInitiativeCard() {
     var initiativeCards = document.querySelector('.initiative-cards');
     var initiativeDrawn = initiativeDeck.pop();
-    console.log(initiativeDrawn);
+    
     if (!initiativeDrawn) {
         return;
     }
@@ -252,8 +254,6 @@ function magnifyCard(e) {
 function removeEventCard(e) {
     e.preventDefault();
 
-    console.log(e.target.closest('.event-card-container'));
-
     // Check if the event has already been marked as removed
     if (e.target.parentElement.dataset.removed) {
         return;
@@ -263,13 +263,13 @@ function removeEventCard(e) {
     if (eventCardContainer) {
         eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
 
-        var focusDifficulty = eventCardContainer.dataset.active ? 4 : 4 - Array.prototype.indexOf.call(eventCardContainer.parentElement.children, eventCardContainer);
+        var focusDifficulty = eventCardContainer.dataset.active === 'true' ? 4 : 5 - Array.prototype.indexOf.call(eventCardContainer.parentElement.children, eventCardContainer);
         if (confirm(`Perform a Difficulty ${focusDifficulty} Focus Check`)) {
             eventCardContainer.querySelector('.card-background').style.backgroundImage = `url("images/events/resolved.jpg")`;
             eventCardContainer.classList.add('empty');
             eventCardContainer.dataset.removed = true;            
-        } else {            
-            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url('images/events/${eventCardContainer.dataset.filename}'')`;
+        } else {
+            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url('images/events/${eventCardContainer.dataset.filename}')`;
             eventCardContainer.classList.remove('empty');
             eventCardContainer.dataset.removed = false;
         };
@@ -289,8 +289,13 @@ function activateEventCard(e) {
     if (confirm(`Move this Event Card from the queue to a character sheet?`)) {
         if (eventCardContainer) {
             eventCardContainer.dataset.active = true;
-            document.querySelector('.active-event-cards').prepend(eventCardContainer);    
+            document.querySelector('.active-event-cards').prepend(eventCardContainer.cloneNode(true));    
             eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
+            
+            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url("images/events/resolved.jpg")`;
+            eventCardContainer.querySelector('.event-button-container').innerHTML = '';
+            eventCardContainer.classList.add('empty');
+            eventCardContainer.dataset.removed = true; 
         }
     }    
 }
@@ -935,31 +940,36 @@ var eventCards = [
         name: 'Event!',
         description: '',
         image: 'footclan3.jpg',
-        deck: 'Foot Clan'
+        deck: 'Foot Clan',
+        activate: true
     },
     {
         name: 'Event!',
         description: '',
         image: 'footclan4.jpg',
-        deck: 'Foot Clan'
+        deck: 'Foot Clan',
+        activate: true
     },
     {
         name: 'Event!',
         description: '',
         image: 'beboprocksteady1.jpg',
-        deck: 'Bebop and Rocksteady'
+        deck: 'Bebop and Rocksteady',
+        activate: true
     },
     {
         name: 'Event!',
         description: '',
         image: 'beboprocksteady2.jpg',
-        deck: 'Bebop and Rocksteady'
+        deck: 'Bebop and Rocksteady',
+        activate: true
     },
     {
         name: 'Event!',
         description: '',
         image: 'baxter1.jpg',
-        deck: 'Baxter'
+        deck: 'Baxter',
+        activate: true
     },
     {
         name: 'Event!',
@@ -995,7 +1005,8 @@ var eventCards = [
         name: 'Event!',
         description: '',
         image: 'shredder1.jpg',
-        deck: 'Shredder'
+        deck: 'Shredder',
+        activate: true
     },
     {
         name: 'Event!',
@@ -1007,13 +1018,15 @@ var eventCards = [
         name: 'Event!',
         description: '',
         image: 'oldhob1.jpg',
-        deck: 'Old Hob'
+        deck: 'Old Hob',
+        activate: true
     },
     {
         name: 'Event!',
         description: '',
         image: 'hun1.jpg',
-        deck: 'Hun'
+        deck: 'Hun',
+        activate: true
     }
 ];
 
@@ -1107,14 +1120,11 @@ function loadInitiatives(initiativeArray, initiativeArea) {
 
         initiativeCardImg.addEventListener('contextmenu', function (ev) {
             ev.preventDefault();
-            //alert('right click');
+
             removeInitiativeCardFromPool(initiativeCard.image);
             if (parseInt(initiativeCardImg.dataset.quantity) > 0) {
                 initiativeCardImg.dataset.quantity = parseInt(initiativeCardImg.dataset.quantity) - 1;
             }
-
-            console.log(initiativeDeckPool); 
-            console.log(initiativeCard.image);
 
             if (!initiativeDeckPool.includes(initiativeCard.image)) {
                 initiativeCardImg.classList.remove('selected');
@@ -1143,29 +1153,40 @@ function removeInitiativeCardFromPool(imageName) {
 }
 
 function inspectInitiativeDeck(e) {
-    var initiativeInspectionContainer = document.querySelector('.initiative-inspection');
-    initiativeInspectionContainer.classList.add('show');
+    if (initiativeDeck.length < 1) {
+        return;
+    }
+
+    var body = document.querySelector('body');
+    body.dataset.page = 'initiativeinspection';
 
     var initiativeInspectionCardsContainer = document.querySelector('.initiative-inspection-cards');
     initiativeInspectionCardsContainer.innerHTML = '';
     
     for (var i = 0; i < 3; i++) {
+        var index = initiativeDeck.length - 1 - i;
+
+        if (index < 0) {
+            continue;
+        }
+
         var initiativeCard = initiativeDeck[initiativeDeck.length - 1 - i];
 
         if (!initiativeCard) {
-            return;
+            continue;
         }
 
         var initiativeImage = document.createElement('img');
         initiativeImage.dataset.filename = initiativeCard;
         initiativeImage.src = `images/initiative/${initiativeCard}`;
+        initiativeImage.classList.add('card-background');
+        initiativeImage.classList.add('card-shadow');
         initiativeImage.addEventListener('click', returnToInitiativeDeck);
 
         initiativeInspectionCardsContainer.prepend(initiativeImage);
     }
 
-    var endIndex = initiativeDeck.length > 2 ? initiativeDeck.length - 3 : 0;
-    initiativeDeck = initiativeDeck.slice(0, endIndex);
+    initiativeDeck = initiativeDeck.length > 3 ? initiativeDeck.slice(0, initiativeDeck.length - 3) : [];
 }
 
 function returnToInitiativeDeck(e) {
@@ -1174,6 +1195,7 @@ function returnToInitiativeDeck(e) {
     e.target.remove();
 
     if (document.querySelector('.initiative-inspection-cards').children.length === 0) {
-        document.querySelector('.initiative-inspection').classList.remove('show');
+        var body = document.querySelector('body');
+        body.dataset.page = 'playarea';
     }
 }

@@ -208,6 +208,7 @@ span.initiative-deck-quantity, span.event-deck-quantity {
     font-size: 0.8rem;
     text-transform: uppercase;    
     box-shadow: inset 1px 1px #ffeb3b, inset -1px 1px #ffeb3b;
+    min-height: 20px;
 }
 
 .event-button-container span:first-child {
@@ -223,7 +224,7 @@ span.initiative-deck-quantity, span.event-deck-quantity {
 .event-rules-button {
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     color: #fff;
     background: #673ab7;
     padding: 5px 10px;
@@ -275,7 +276,6 @@ span.initiative-event-quantity {
 }
 
 .card-background {
-    background: url('images/events/baxter2.jpg');
     height: 400px;
     width: 285px;
     background-size: cover;
@@ -358,16 +358,26 @@ span.button {
     max-width: 367px;
 }
 
-.initiative-inspection.show {
+.play-area {
+    display: none;
+}
+
+body[data-page='playarea'] .play-area {
+    display: grid;
+}
+
+body[data-page='initiativeinspection']>*:not(.initiative-inspection) {
+    display: none !important;
+}
+
+body[data-page='initiativeinspection'] .initiative-inspection {
     display: block;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
     background: #008f61;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 5px black;
-    z-index: 2;
+}
+
+.initiative-inspection-cards {
+    display: flex;
+    column-gap: 10px;
+    row-gap: 10px;
 }

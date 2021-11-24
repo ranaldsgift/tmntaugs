@@ -189,7 +189,7 @@ span.initiative-deck-quantity, span.event-deck-quantity {
     padding: 5px 10px;
 }
 
-.initiative-deck-buttons span.button {
+.button {
     cursor: pointer;
 }
 
@@ -332,7 +332,7 @@ span.show-event-discards, span.inspect-initiative {
     bottom: 5px
 }
 
-span.button {
+.button {
     font-size: 0.8rem;
     text-transform: uppercase;
     background: #673ab7;
@@ -380,4 +380,16 @@ body[data-page='initiativeinspection'] .initiative-inspection {
     display: flex;
     column-gap: 10px;
     row-gap: 10px;
+}
+
+span.list-number {
+    border: 1px solid #fff;
+    position: relative;
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+    border-radius: 15px;
+    text-align: center;
+    background: #673ab7;
+    color: #fff;
 }

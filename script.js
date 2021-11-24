@@ -1092,6 +1092,14 @@ function addEventDeckToPool(eventDeckName) {
     eventDeckPool.push(...eventDeckCards);    
     eventDeck.push(...eventDeckCards);
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
+
+    var eventInitiativeCount = initiativeDeckPool.filter(card => { return card.includes('initiative'); }).length;
+    if (eventInitiativeCount < 2) {
+        addEventToInitiativeDeck();
+        if (eventInitiativeCount === 0) {
+            addEventToInitiativeDeck();
+        }
+    }
 }
 
 function removeEventDeckFromPool(eventDeckName) {
@@ -1102,6 +1110,14 @@ function removeEventDeckFromPool(eventDeckName) {
         return eventCard.deck !== eventDeckName;
     });
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
+
+    if (eventDeck.length === 0) {
+        var eventInitiativeCount = initiativeDeckPool.filter(card => { return card.includes('initiative'); }).length;
+
+        for (var i = 0; i < eventInitiativeCount; i++) {
+            removeEventFromInitiativeDeck();
+        }
+    }
 }
 
 function loadInitiatives(initiativeArray, initiativeArea) {

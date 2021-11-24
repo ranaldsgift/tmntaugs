@@ -9,28 +9,30 @@
         <div class="setup-area">
             <a class="event-rules-button" target="_blank" href="files/AUGS Event Deck Rules.pdf">Click here for AUGS Event Deck Rules</a>
             <div class="initiative-selection">
-                <h3 class="select-heroes-header">Select Heroes</h3>
+                <h3 class="select-heroes-header"><span class="list-number">1</span> Select Heroes</h3>
+                <p>Click on the Heroes that will be used in this adventure. Clicking a Hero multiple times will add multiple copies of their initiative card to the initiative deck. Right-clicking on a Hero will remove copies of their initiative card from the deck.</p>
                 <div class="hero-initiatives">
                 </div>
-                <h3>Select Villains</h3>
+                <h3><span class="list-number">2</span> Select Villains</h3>
+                <p>Click on the Villains that will be used in this adventure. Clicking a Villain multiple times will add multiple copies of their initiative card to the initiative deck. Right-clicking on a Villain will remove copies of their initiative card from the deck.</p>
                 <div class="villain-initiatives">
                 </div>
             </div>
             <div class="event-selection">
-                <h3>Select Event Decks</h3>
+                <h3><span class="list-number">3</span> Select Event Decks</h3>
+                <p>Click on any event decks that you would like to include. The rules recommend using the Base and Hero Decks, and a combination of 3 of the other decks. If you select any event decks here, 2 event triggers will be added to the initiative deck. You can adjust the amount of event triggers by using the controls above the initiative deck.</p>
                 <div class="event-deck-options"></div>
             </div>
+            <h3><span class="list-number">4</span> Ready!</h3>
+            <p>Shuffle both decks and click on the initiative deck to draw the top card and start playing! You can click the Hide Setup button below to hide these setup options.</p>
         </div>
         <h2 class="setup-header" onclick="toggleSetup()" style="cursor: pointer; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Hide Setup -</h2>
         <div class="play-area">
             <div class="initiative-deck-buttons">
-                <!-- <button onclick="addEventToInitiativeDeck()">Add Event</button>
-                <button onclick="addEventToInitiativeDiscard()">Add Event to Discard</button>
-                <button onclick="removeEventFromInitiativeDeck()">Remove Event</button> -->
-                <span onclick="addEventToInitiativeDeck()" class="button">Add Event</span>
-                <span onclick="addEventToInitiativeDiscard()" class="button">Add Event to Discard</span>
+                <span onclick="addEventToInitiativeDeck()" class="button">Add Event Trigger</span>
+                <span onclick="addEventToInitiativeDiscard()" class="button">Add Event Trigger to Discard</span>
                 <span onclick="removeEventFromInitiativeDeck()" class="button">Remove Event</span>
-                <span class="initiative-event-quantity" data-quantity="0">Number of Events in Deck:</span>
+                <span class="initiative-event-quantity" data-quantity="0">Number of Event Triggers in Deck:</span>
             </div>
             <div class="initiative-deck">
                 <div class="initiative-draw-deck draw-deck">

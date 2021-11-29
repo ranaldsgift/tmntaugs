@@ -1,0 +1,281 @@
+.hero-overlay {
+    background-image: url('../images/homebrew/hero_overlay.png');
+    border-radius: 3px;
+}
+body {
+    display: flex;
+    background: #008f61;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.homebrew-template-container.hero-template {
+    height: 566px;
+    width: 700px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px black;
+    position: relative;
+}
+
+.hero-overlay, .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.hero-background {
+    background: var(--background-color);
+}
+
+@font-face {
+    font-family: 'bangersregular';
+    src: url('../fonts/bangers-regular-webfont.woff2') format('woff2'),
+         url('../fonts/bangers-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'smackattack_bbregular';
+    src: url('../fonts/smackattackbb_reg-webfont.woff2') format('woff2'),
+         url('../fonts/smackattackbb_reg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.hero-template>* {
+    border-radius: 10px;
+}
+
+.hero-ability {
+    position: absolute;
+    top: 145px;
+    left: 395px;
+    width: 300px;
+    display: grid;
+    grid-row-gap: 2px;
+}
+
+span {
+    border: none;
+    font-family: bangersregular;
+    font-size: 32px;
+    text-align: center;
+    background: none;
+}
+
+.hero-template textarea {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-family: smackattack_bbregular;    
+    resize: none;
+    height: 250px;
+    text-align: center;
+    overflow: hidden;
+    background: none;
+}
+
+.hero-stats {
+    position: absolute;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 45px;
+    grid-template-columns: 56px 54px 55px 54px 63px;
+    top: 70px;
+    left: 358px;
+}
+
+.hero-stats span {
+    color: #fff;
+    width: 50px;
+    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
+}
+
+span.hero-stat-health {
+    position: absolute;
+    color: #000;
+    top: -40px;
+    text-shadow: none;
+    right: 11px;
+}
+
+span.hero-stat-awaken {
+    font-size: 20px;
+}
+
+.hero-information {
+    position: absolute;
+    display: grid;
+    grid-template-areas:
+        "heroIcon heroName"
+        "heroIcon heroFactions";
+    grid-template-columns: 80px 238px;
+    grid-template-rows: 50px 30px;
+    top: 10px;
+    left: 10px;
+    align-items: end;
+    grid-column-gap: 10px;
+}
+
+.hero-icon {
+    grid-area: heroIcon;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hero-name {
+    grid-area: heroName;
+    text-align: left;
+    font-size: 40px;
+    align-self: end;
+}
+
+.hero-factions {
+    grid-area: heroFactions;
+    font-size: 20px;
+    text-align: left;
+    align-self: start;
+}
+/* 
+input#heroIcon {
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 0px;
+} */
+
+.hero-image {
+    position: absolute;
+    top: 110px;
+    left: 5px;
+    width: 350px;
+    height: 456px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.hero-image input {
+    font-size: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+h2 {
+    margin: 0;
+}
+
+.hero-dice {
+    position: absolute;
+    bottom: 30px;
+    left: 385px;
+    display: grid;
+    grid-template-columns: repeat(6, 40px);
+    grid-template-rows: 40px;
+    grid-column-gap: 10px;
+}
+
+.hero-dice>div:nth-child(1) {
+    margin-top: 5px;
+}
+.hero-dice>div:nth-child(2) {
+    margin-top: 4px;
+}
+.hero-dice>div:nth-child(3) {
+    margin-top: 3px;
+}
+.hero-dice>div:nth-child(4) {
+    margin-top: 2px;
+}
+.hero-dice>div:nth-child(5) {
+    margin-top: 1px;
+}
+.hero-dice>div:nth-child(6) {
+    margin-top: 0px;
+}
+.hero-dice>div {
+    height: 35px;
+    width: 35px;
+}
+.hero-dice .icon {
+    height: 39px;
+    width: 39px;
+    background-size: contain;
+    position: absolute;
+}
+
+.icon[data-icon='melee'] {
+    background-image: url('../images/homebrew/melee.png');
+}
+.icon[data-icon='double-melee'] {
+    background-image: url('../images/homebrew/double_melee.png');
+}
+.icon[data-icon='range'] {
+    background-image: url('../images/homebrew/range.png');
+}
+.icon[data-icon='double-range'] {
+    background-image: url('../images/homebrew/double_range.png');
+}
+.icon[data-icon='move'] {
+    background-image: url('../images/homebrew/move.png');
+}
+.icon[data-icon='double-move'] {
+    background-image: url('../images/homebrew/double_move.png');
+}
+.icon[data-icon='block'] {
+    background-image: url('../images/homebrew/block.png');
+}
+.icon[data-icon='block-melee'] {
+    background-image: url('../images/homebrew/block_melee.png');
+}
+.icon[data-icon='block-range'] {
+    background-image: url('../images/homebrew/block_range.png');
+}
+.icon[data-icon='block-move'] {
+    background-image: url('../images/homebrew/block_move.png');
+}
+.icon[data-icon='focus'] {
+    background-image: url('../images/homebrew/focus.png');
+}
+
+.template-options {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-auto-columns: 200px;
+    grid-column-gap: 20px;
+}
+.template-options div {
+    display: grid;
+}
+.background {
+    background-color: var(--background-color);
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 2px
+ solid var(--border-color);
+    border-radius: 5px;
+}
+
+.hero-dice[data-inverted='true'] .icon {
+    filter: invert(1);
+}
+#saveHero {
+    cursor: pointer;
+    width: 100px;
+}
+
+.saved-template-container>canvas:nth-child(n+2) {
+    display: none;
+}

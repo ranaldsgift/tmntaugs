@@ -1,0 +1,395 @@
+.event-setup, .initiative-setup {
+    display: grid;
+    width: 300px;
+    grid-auto-rows: minmax(30px, auto);
+    margin: 0 auto;
+}
+.initiative-cards img {
+    display: none;
+    max-height: 400px;
+    max-width: 367px;
+}
+
+.initiative-cards img:last-child {
+    display: inline-block;
+}
+
+.event-cards img {
+    max-height: 400px;    
+    max-width: 367px;
+}
+
+.event-cards {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    column-gap: 1rem;
+}
+
+.play-area {
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-row-gap: 1rem;
+}
+
+body {
+    background: #008f61;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.draw-deck img, .active-event-cards img {    
+    max-height: 400px;
+    max-width: 367px;
+}
+
+.initiative-deck, .event-deck {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    column-gap: 1rem;
+    position: relative;
+}
+
+.event-cards {
+    column-gap: 1rem;
+}
+
+.event-cards .event-card-container:nth-child(n+6) {
+    display: none;
+}
+
+span.initiative-deck-quantity, span.event-deck-quantity {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: white;
+    background: #008f61;
+    width: 25px;
+    text-align: center;
+    border-radius: 15px;
+    z-index: 1;
+}
+
+.initiative-cards.card-pile {
+    align-self: end;
+}
+
+.play-area img {
+    box-shadow: 1px 1px 5px black;
+}
+
+.villain-initiatives img, .hero-initiatives img, .initiative-card-mini {
+    height: 118px;
+    width: 81px;
+    margin: 4px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px black;
+    position: relative;
+    background-size: cover;
+}
+
+.initiative-card-mini:hover {
+    outline: 2px solid #ffd700;
+    cursor: pointer;
+}
+
+.villain-initiatives img.selected, .hero-initiatives img.selected, .initiative-card-mini.selected {
+    outline: 2px solid #ffd700;
+}
+
+.villain-initiatives img:before, .hero-initiatives img:before, .initiative-card-mini.selected:before {
+    content: attr(data-quantity); /* value that that refers to CSS 'content' */
+    position:absolute;
+    top: 2px;
+    left: 2px;
+    background: #008f61;
+    border-radius: 15px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+}
+
+.hero-initiatives, .villain-initiatives {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.card-pile img, .draw-deck img {
+    border-radius: 6px;
+}
+
+.event-deck-options {
+    display: flex;
+    column-gap: 5px;
+    row-gap: 5px;
+    flex-wrap: wrap;
+}
+
+.event-deck-options label {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #ff9800;
+    cursor: pointer;
+}
+
+.event-deck-options label.selected {
+    background: green;
+    outline: 2px solid #ffd700;
+}
+
+.event-deck-options label:hover {
+    outline: 2px solid #ffd700;
+}
+
+.select-heroes-header {
+    position: relative;
+}
+
+.select-heroes-header:after {
+    content: '(right-click to remove)';
+    top: 6px;
+    position: absolute;
+    font-size: 0.6rem;
+    color: white;
+    margin-left: 10px;
+    width: 112px;
+}
+
+.setup-area {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 5px -5px #000;
+}
+
+.initiative-event-quantity:after {
+    content: attr(data-quantity);
+    margin-left: 5px;
+}
+
+.active-event-cards {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    box-shadow: -5px 0 5px -5px;
+    row-gap: 1rem;
+    column-gap: 1rem;
+}
+
+.initiative-deck-buttons span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    background: #673ab7;
+    color: white;
+    text-align: center;
+    padding: 0 10px;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.draw-deck-image-container {
+    position: relative;
+}
+
+.event-button-container {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    background: #8bc34a;
+    margin-bottom: -5px;
+    padding: 5px 0 10px;
+    border-radius: 5px 5px 0 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;    
+    box-shadow: inset 1px 1px #ffeb3b, inset -1px 1px #ffeb3b;
+    min-height: 20px;
+}
+
+.event-button-container span:first-child {
+    width: 100%;
+    text-align: center;
+}
+
+.event-button-container span:not(.label):hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.event-rules-button {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: #fff;
+    background: #673ab7;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.draw-deck {
+    cursor: pointer;
+}
+
+.shuffle-initiative-indicator, .shuffle-events-indicator {
+    opacity: 0;
+    position: absolute;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    background: #673ab7;
+    top: calc(50% - 25px);
+    height: 50px;
+    align-content: center;
+    display: grid;    
+    pointer-events: none;
+}
+
+.active-event-cards span.activate-event-button {
+    display: none;
+}
+
+.draw-deck.shuffled .shuffle-initiative-indicator, .draw-deck.shuffled .shuffle-events-indicator {
+    animation: fade 1.5s linear;
+}
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  15%,85% { opacity: 1 }
+}
+
+span.initiative-event-quantity {
+    background: #795548;
+}
+
+.initiative-deck-buttons {
+    row-gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 5px;
+}
+
+.card-background {
+    height: 400px;
+    width: 285px;
+    background-size: cover;
+}
+
+.magnify .card-background {
+    height: 400px;
+    width: 285px;
+    background-size: 440px;
+    background-position: center -150px;
+} 
+
+.card-shadow {
+    border-radius: 6px;
+    box-shadow: 1px 1px 5px black;
+}
+
+span.magnify-button {
+    position: absolute;
+    right: 5px;
+    top: 35px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    border: 3px solid #ffffff;
+    border-radius: 14px;
+    width: 15px;
+    height: 15px;
+    display: grid;
+    align-content: center;
+    text-align: center;
+}
+
+.event-card-container {
+    position: relative;
+}
+
+.event-deck[data-showdiscards='true'] .event-cards .event-card-container:nth-child(n+6) {
+    display: block;
+    padding: 10px;
+    border: 1px dashed #673ab7;
+}
+
+.event-deck[data-showdiscards='true'] .event-cards .event-card-container:nth-child(n+6) span.magnify-button {
+    right: 15px;
+    top: 45px;
+}
+
+span.show-event-discards, span.inspect-initiative {
+    position: absolute;
+    left: 5px;
+    bottom: 5px
+}
+
+.button {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    background: #673ab7;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.counter-container {
+    display: grid;
+    grid-auto-flow: column;
+    width: 100;
+    text-align: center;
+}
+
+.initiative-inspection {
+    display: none;
+}
+
+.initiative-inspection-cards img {
+    max-height: 400px;
+    max-width: 367px;
+}
+
+.play-area {
+    display: none;
+}
+
+body[data-page='playarea'] .play-area {
+    display: grid;
+}
+
+body[data-page='initiativeinspection']>*:not(.initiative-inspection) {
+    display: none !important;
+}
+
+body[data-page='initiativeinspection'] .initiative-inspection {
+    display: block;
+    background: #008f61;
+    padding: 20px;
+}
+
+.initiative-inspection-cards {
+    display: flex;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+span.list-number {
+    border: 1px solid #fff;
+    position: relative;
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+    border-radius: 15px;
+    text-align: center;
+    background: #673ab7;
+    color: #fff;
+}

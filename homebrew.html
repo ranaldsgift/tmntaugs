@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title>TMNT Board Game Assistant</title>
+        <script src="script/homebrew.js"></script>
+        <script src="script/html2canvas.min.js"></script>
+        <link rel="stylesheet" href="style/homebrew.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <h2>Select Hero Image:</h2>
+      <input type='file' id="heroImage">
+      <h2>Select Hero Icon:</h2>
+      <input type='file' id="heroIcon">
+      <div class="template-options">
+        <div>
+          <label>Dice Slot:</label>
+          <select class="dice-slot-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <label>Dice Icon:</label>
+          <select class="dice-icon-select">
+            <option value="melee">Melee</option>
+            <option value="double-melee">Double Melee</option>
+            <option value="range">Range</option>
+            <option value="double-range">Double Range</option>
+            <option value="block">Block</option>
+            <option value="block-melee">Block Melee</option>
+            <option value="block-range">Block Range</option>
+            <option value="block-move">Block Move</option>
+            <option value="focus">Focus</option>
+          </select>
+          <label>Background Color:</label>
+          <input type="color" id="backgroundColor" name="backgroundColor" value="#3f51b5">
+          <label>Border Color:</label>
+          <input type="color" id="borderColor" name="borderColor" value="#000">
+          <label>Invert Icon Color:</label>
+          <input type="checkbox" id="invertColor" name="invertColor" value="false">
+          <label>Card Color:</label>
+          <input type="color" id="cardColor" name="cardColor" value="#646464">
+        </div>
+        <div>
+          <label>Move:</label>
+          <input class="hero-stat-move" type="number" value="1">
+          <label>Attack:</label>
+          <input class="hero-stat-attack" type="number" value="1">
+          <label>Block:</label>
+          <input class="hero-stat-block" type="number" value="1">
+          <label>Skill:</label>
+          <input class="hero-stat-skill" type="number" value="1">
+          <label>Focus:</label>
+          <input class="hero-stat-focus" type="number" value="1">
+          <label>Health:</label>
+          <input class="hero-stat-health" type="number" value="1">
+          <label>Awaken:</label>
+          <input class="hero-stat-awaken" type="number" value="1">
+        </div>
+        <div>
+          <input type="text" id="heroName" placeholder="Hero Name">
+          <input type="text" id="heroFactions" placeholder="Hero Factions">
+          <input type="text" id="heroAbility" placeholder="Ability Name">
+          <textarea type="text" id="heroAbilityDescription" placeholder="Ability Description"></textarea>
+        </div>
+      </div>
+      <input type="button" id="saveHero" name="saveHero" value="Save">
+		<div class="homebrew-template-container hero-template">
+			<div class="hero-background" style="--background-color: #646464;"></div>
+			<div class="hero-image">
+      </div>
+			<div class="hero-overlay"></div>
+      <div class="hero-stats">
+        <span class="hero-stat-move" type="number" value="1">1</span>
+        <span class="hero-stat-attack" type="number" value="1">1</span>
+        <span class="hero-stat-block" type="number" value="1">1</span>
+        <span class="hero-stat-skill" type="number" value="1">1</span>
+        <span class="hero-stat-focus" type="number" value="1">1</span>
+        <div>
+          <span class="hero-stat-health" type="number" value="1">1</span>
+          <span class="hero-stat-awaken" type="number" value="1">1</span>
+        </div>
+      </div>
+      <div class="hero-information">
+        <div class="hero-icon">
+        </div>
+        <span class="hero-name" placeholder="Hero Name" type="text">Hero Name</span>
+        <span class="hero-factions" placeholder="Hero Factions" type="text">Hero Factions</span>
+      </div>
+      <div class="hero-ability">
+        <span class="hero-ability-name" placeholder="Ability Name">Ability Name</span>
+        <textarea class="hero-ability-description" placeholder="Ability description"></textarea>
+      </div>
+      <div class="hero-dice" data-inverted="false" style="--background-color: #3f51b5; --border-color: #000;">
+        <div>
+          <div class="background"></div>
+          <div class="icon" data-icon="melee"></div>
+        </div>
+        <div>
+          <div class="background"></div>
+          <div class="icon" data-icon="double-melee"></div>
+        </div>
+        <div>
+          <div class="background"></div>
+          <div class="icon" data-icon="range"></div>
+        </div>
+        <div>
+          <div class="background"></div>
+          <div class="icon" data-icon="double-range"></div>
+        </div>
+        <div>
+          <div class="background"></div>
+          <div class="icon" data-icon="block"></div>
+        </div>
+        <div>
+          <div class="background"></div>
+          <div class="icon" data-icon="focus"></div>
+        </div>
+      </div>
+		</div>
+    <div class="saved-template-container"></div>
+    </body>
+</html>

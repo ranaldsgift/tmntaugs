@@ -135,6 +135,10 @@ window.onload = (event) => {
     document.querySelector('input#heroImageSize').addEventListener('change', (e) => {
         document.querySelector('.hero-image').style.setProperty('--size', `${e.target.value}%`);
     }, true);
+    
+    document.querySelector('input#heroNameFontSize').addEventListener('change', (e) => {
+        document.querySelector('.hero-name').style.setProperty('--font-size', `${e.target.value}px`);
+    }, true);
 
     document.getElementById('saveHero').addEventListener('click', saveHero, true);
     function saveHero(e){

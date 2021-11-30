@@ -329,5 +329,5 @@ input, .invert-color-container, select, textarea {
     border: none;
 }
 .hero-information-options {
-    grid-template-columns: 200px 200px 200px 500px;
+    grid-template-columns: 200px 100px 200px 200px 500px;
 }

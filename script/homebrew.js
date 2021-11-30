@@ -92,7 +92,8 @@ window.onload = (event) => {
     
     document.getElementById('heroAbilityDescription').addEventListener('change', updateHeroAbilityDescription, true);
     function updateHeroAbilityDescription(e){
-        document.querySelector('.hero-ability-description').innerHTML = e.target.value;
+        console.log(e.target.value.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+        document.querySelector('.hero-ability-description').innerHTML = e.target.value.replace(/(?:\r\n|\r|\n)/g, '<br>');
     }
     
     document.querySelector('input.hero-stat-move').addEventListener('change', (e) => {
@@ -121,6 +122,18 @@ window.onload = (event) => {
     
     document.querySelector('input.hero-stat-awaken').addEventListener('change', (e) => {
         document.querySelector('span.hero-stat-awaken').innerHTML = e.target.value;
+    }, true);
+    
+    document.querySelector('input#heroImagePositionLeft').addEventListener('change', (e) => {
+        document.querySelector('.hero-image').style.setProperty('--left', e.target.value);
+    }, true);
+
+    document.querySelector('input#heroImagePositionTop').addEventListener('change', (e) => {
+        document.querySelector('.hero-image').style.setProperty('--top', e.target.value);
+    }, true);
+    
+    document.querySelector('input#heroImageSize').addEventListener('change', (e) => {
+        document.querySelector('.hero-image').style.setProperty('--size', `${e.target.value}%`);
     }, true);
 
     document.getElementById('saveHero').addEventListener('click', saveHero, true);

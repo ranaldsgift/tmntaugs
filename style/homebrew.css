@@ -67,7 +67,7 @@ span {
     background: none;
 }
 
-.hero-template textarea {
+.hero-ability-description {
     border: none;
     font-family: inherit;
     font-size: inherit;
@@ -77,6 +77,7 @@ span {
     text-align: center;
     overflow: hidden;
     background: none;
+    max-width: 300px;
 }
 
 .hero-stats {
@@ -86,7 +87,7 @@ span {
     grid-auto-columns: 45px;
     grid-template-columns: 56px 54px 55px 54px 63px;
     top: 70px;
-    left: 358px;
+    left: 350px;
 }
 
 .hero-stats span {
@@ -105,6 +106,10 @@ span.hero-stat-health {
 
 span.hero-stat-awaken {
     font-size: 20px;
+    margin-left: 12px;
+    text-align: center;
+    width: 30px;
+    display: block;
 }
 
 .hero-information {
@@ -154,13 +159,13 @@ input#heroIcon {
 
 .hero-image {
     position: absolute;
-    top: 110px;
-    left: 5px;
-    width: 350px;
-    height: 456px;
+    bottom: 0;
+    left: 0;
+    width: 388px;
+    height: 485px;
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-position: var(--left) var(--top);
+    background-size: var(--size);
 }
 
 .hero-image input {
@@ -250,13 +255,18 @@ h2 {
 
 .template-options {
     display: grid;
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     align-items: center;
     grid-auto-columns: 200px;
     grid-column-gap: 20px;
+    grid-row-gap: 10px;
 }
-.template-options div {
+.template-options>div {
     display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr;    
+    grid-auto-columns: 100px;
+    grid-column-gap: 10px;
 }
 .background {
     background-color: var(--background-color);
@@ -278,4 +288,46 @@ h2 {
 
 .saved-template-container>canvas:nth-child(n+2) {
     display: none;
+}
+
+.image-settings {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-columns: 100px;
+    grid-column-gap: 10px;
+}
+
+label {
+    align-self: end;
+    font-family: 'bangersregular';
+    padding: 5px;
+    background: #4caf50;
+    height: calc(100% - 10px);
+    border-radius: 5px 5px 0 0;
+    outline: 1px solid black;
+    text-align: center;
+    align-content: center;
+    display: grid;
+}
+
+input[type='color'], .invert-color-container {
+    height: 100%;
+    width: 100%;
+}
+
+.invert-color-container {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    background: #673ab7;
+}
+
+input, .invert-color-container, select, textarea {
+    outline: 1px solid black;
+    border-radius: 0 0 5px 5px;
+    border: none;
+}
+.hero-information-options {
+    grid-template-columns: 200px 200px 200px 500px;
 }

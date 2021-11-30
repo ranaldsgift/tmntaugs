@@ -7,10 +7,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-      <h2>Select Hero Image:</h2>
-      <input type='file' id="heroImage">
-      <h2>Select Hero Icon:</h2>
-      <input type='file' id="heroIcon">
+      <div class="image-settings">
+        <label>Select Hero Image:</label>
+        <input type="file" id="heroImage" style="display: none;">
+        <input type="button" value="Browse..." onclick="document.getElementById('heroImage').click();">
+        <label>Select Hero Icon:</label>
+        <input type='file' id="heroIcon" style="display: none;">
+        <input type="button" value="Browse..." onclick="document.getElementById('heroIcon').click();">
+        <label>Hero Image Position Left:</label>
+        <input id="heroImagePositionLeft" type="number" value="0">
+        <label>Hero Image Position Top:</label>
+        <input id="heroImagePositionTop" type="number" value="0">
+        <label>Hero Image Size:</label>
+        <input id="heroImageSize" type="number" min="1" max="200" step="1" value="100">
+        <label>Card Color:</label>
+        <input type="color" id="cardColor" name="cardColor" value="#646464">
+      </div>
       <div class="template-options">
         <div>
           <label>Dice Slot:</label>
@@ -28,6 +40,8 @@
             <option value="double-melee">Double Melee</option>
             <option value="range">Range</option>
             <option value="double-range">Double Range</option>
+            <option value="move">Move</option>
+            <option value="double-move">Double Move</option>
             <option value="block">Block</option>
             <option value="block-melee">Block Melee</option>
             <option value="block-range">Block Range</option>
@@ -39,9 +53,7 @@
           <label>Border Color:</label>
           <input type="color" id="borderColor" name="borderColor" value="#000">
           <label>Invert Icon Color:</label>
-          <input type="checkbox" id="invertColor" name="invertColor" value="false">
-          <label>Card Color:</label>
-          <input type="color" id="cardColor" name="cardColor" value="#646464">
+          <div class="invert-color-container"><input type="checkbox" id="invertColor" name="invertColor" value="false"></div>
         </div>
         <div>
           <label>Move:</label>
@@ -59,67 +71,75 @@
           <label>Awaken:</label>
           <input class="hero-stat-awaken" type="number" value="1">
         </div>
-        <div>
+        <div class="hero-information-options">
+          <label>Hero Name:</label>
           <input type="text" id="heroName" placeholder="Hero Name">
+          <label>Faction / Keywords:</label>
           <input type="text" id="heroFactions" placeholder="Hero Factions">
+          <label>Ability:</label>
           <input type="text" id="heroAbility" placeholder="Ability Name">
+          <label>Ability Description:</label>
           <textarea type="text" id="heroAbilityDescription" placeholder="Ability Description"></textarea>
         </div>
-      </div>
-      <input type="button" id="saveHero" name="saveHero" value="Save">
-		<div class="homebrew-template-container hero-template">
-			<div class="hero-background" style="--background-color: #646464;"></div>
-			<div class="hero-image">
-      </div>
-			<div class="hero-overlay"></div>
-      <div class="hero-stats">
-        <span class="hero-stat-move" type="number" value="1">1</span>
-        <span class="hero-stat-attack" type="number" value="1">1</span>
-        <span class="hero-stat-block" type="number" value="1">1</span>
-        <span class="hero-stat-skill" type="number" value="1">1</span>
-        <span class="hero-stat-focus" type="number" value="1">1</span>
         <div>
-          <span class="hero-stat-health" type="number" value="1">1</span>
-          <span class="hero-stat-awaken" type="number" value="1">1</span>
+          <label>Save Image</label>
+          <input type="button" id="saveHero" name="saveHero" value="Create PNG">
         </div>
       </div>
-      <div class="hero-information">
-        <div class="hero-icon">
+      <div style="display: flex; column-gap: 10px;">
+        <div class="homebrew-template-container hero-template">
+          <div class="hero-background" style="--background-color: #646464;"></div>
+          <div class="hero-overlay"></div>
+          <div class="hero-image" style="--left: 0; --top: 0px; --size: 100%;"></div>
+          <div class="hero-stats">
+            <span class="hero-stat-move" type="number" value="1">1</span>
+            <span class="hero-stat-attack" type="number" value="1">1</span>
+            <span class="hero-stat-block" type="number" value="1">1</span>
+            <span class="hero-stat-skill" type="number" value="1">1</span>
+            <span class="hero-stat-focus" type="number" value="1">1</span>
+            <div>
+              <span class="hero-stat-health" type="number" value="1">1</span>
+              <span class="hero-stat-awaken" type="number" value="1">1</span>
+            </div>
+          </div>
+          <div class="hero-information">
+            <div class="hero-icon">
+            </div>
+            <span class="hero-name" placeholder="Hero Name" type="text">Hero Name</span>
+            <span class="hero-factions" placeholder="Hero Factions" type="text">Hero Factions</span>
+          </div>
+          <div class="hero-ability">
+            <span class="hero-ability-name" placeholder="Ability Name">Ability Name</span>
+            <span class="hero-ability-description" placeholder="Ability description"></span>
+          </div>
+          <div class="hero-dice" data-inverted="false" style="--background-color: #3f51b5; --border-color: #000;">
+            <div>
+              <div class="background"></div>
+              <div class="icon" data-icon="melee"></div>
+            </div>
+            <div>
+              <div class="background"></div>
+              <div class="icon" data-icon="double-melee"></div>
+            </div>
+            <div>
+              <div class="background"></div>
+              <div class="icon" data-icon="range"></div>
+            </div>
+            <div>
+              <div class="background"></div>
+              <div class="icon" data-icon="double-range"></div>
+            </div>
+            <div>
+              <div class="background"></div>
+              <div class="icon" data-icon="block"></div>
+            </div>
+            <div>
+              <div class="background"></div>
+              <div class="icon" data-icon="focus"></div>
+            </div>
+          </div>
         </div>
-        <span class="hero-name" placeholder="Hero Name" type="text">Hero Name</span>
-        <span class="hero-factions" placeholder="Hero Factions" type="text">Hero Factions</span>
+        <div class="saved-template-container"></div>
       </div>
-      <div class="hero-ability">
-        <span class="hero-ability-name" placeholder="Ability Name">Ability Name</span>
-        <textarea class="hero-ability-description" placeholder="Ability description"></textarea>
-      </div>
-      <div class="hero-dice" data-inverted="false" style="--background-color: #3f51b5; --border-color: #000;">
-        <div>
-          <div class="background"></div>
-          <div class="icon" data-icon="melee"></div>
-        </div>
-        <div>
-          <div class="background"></div>
-          <div class="icon" data-icon="double-melee"></div>
-        </div>
-        <div>
-          <div class="background"></div>
-          <div class="icon" data-icon="range"></div>
-        </div>
-        <div>
-          <div class="background"></div>
-          <div class="icon" data-icon="double-range"></div>
-        </div>
-        <div>
-          <div class="background"></div>
-          <div class="icon" data-icon="block"></div>
-        </div>
-        <div>
-          <div class="background"></div>
-          <div class="icon" data-icon="focus"></div>
-        </div>
-      </div>
-		</div>
-    <div class="saved-template-container"></div>
     </body>
 </html>

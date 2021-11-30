@@ -138,7 +138,7 @@ span.hero-stat-awaken {
 .hero-name {
     grid-area: heroName;
     text-align: left;
-    font-size: 40px;
+    font-size: var(--font-size);
     align-self: end;
 }
 

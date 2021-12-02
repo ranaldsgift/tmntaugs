@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>TMNT Board Game Assistant</title>
+        <script src="script/skillcard.js"></script>
+        <script src="script/html2canvas.min.js"></script>
+        <link rel="stylesheet" href="style/skillcard.css">
+        <link rel="stylesheet" href="style/homebrew.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <div class="skill-card-settings">
+        <div class="image-settings">
+          <label>Select Card Image:</label>
+          <input type="file" id="skillCardImage" style="display: none;">
+          <input type="button" value="Browse..." onclick="document.getElementById('skillCardImage').click();">
+          <label>Card Image Position Left:</label>
+          <input id="skillCardImagePositionLeft" type="number" value="0">
+          <label>Card Image Position Top:</label>
+          <input id="skillCardImagePositionTop" type="number" value="0">
+          <label>Card Image Size:</label>
+          <input id="skillCardImageSize" type="number" min="1" max="200" step="1" value="100">
+          <label>Card Color:</label>
+          <input type="color" id="skillCardColor" name="skillCardColor" value="#646464">
+        </div>
+        <div class="template-options">
+          <div>
+            <label>Skill Card Cost:</label>
+            <select class="skill-card-icon-select">
+              <option value="melee">Melee</option>
+              <option value="double-melee">Double Melee</option>
+              <option value="range">Range</option>
+              <option value="double-range">Double Range</option>
+              <option value="move">Move</option>
+              <option value="double-move">Double Move</option>
+              <option value="block">Block</option>
+              <option value="block-melee">Block Melee</option>
+              <option value="block-range">Block Range</option>
+              <option value="block-move">Block Move</option>
+              <option value="focus">Focus</option>
+              <option value="persistent">Persistent (Infinity)</option>
+              <option value="one-time-use">One Time Use (X)</option>
+              <option value="wild">Wild (?)</option>
+            </select>
+            <input type="button" id="addSkillcardCost" value="Add Icon">
+            <input type="button" id="removeSkillcardCost" value="Remove Icon">
+            <label>Skill Card Name:</label>
+            <input type="text" id="skillCardName" placeholder="Skill Card Name">
+            <label>Font Size:</label>
+            <input type="number" id="skillCardNameFontSize" value="52" step="1" min="1" max="60">
+            <label>Skill Card Description:</label>
+            <textarea id="skillCardDescription" placeholder="Skill Card Description"></textarea>
+            <label>Skill Card Character Name:</label>
+            <input type="text" id="skillCardCharacterName" placeholder="Skill Card Character Name"></textarea>
+          </div>
+        </div>
+        <div class="template-options">
+          <div>
+            <label>Save Image</label>
+            <input type="button" id="saveSkillCard" name="saveSkillCard" value="Create PNG">
+          </div>
+        </div>
+      </div>
+      <div class="skill-card-homebrew-container">
+        <div class="skill-card-template-container">
+          <div class="skill-card-background" style="--background-color: #bdbdbd"></div>
+          <div class="skill-card-halftone-background"></div>
+          <div class="skill-card-image" style="--left: 0px; --top: 0px; --size: 100%;"></div>
+          <div class="skill-card-overlay"></div>
+          <div class="skill-card-cost-container"></div>
+          <span class="skill-card-name" style="--font-size: 52px;"></span>
+          <span class="skill-card-description"></span>
+          <span class="skill-card-character-name"></span>
+        </div>
+        <div class="saved-template-container"></div>
+      </div>
+    </body>
+</html>

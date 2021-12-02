@@ -138,16 +138,6 @@ window.onload = (event) => {
 
     document.getElementById('saveHero').addEventListener('click', saveHero, true);
     function saveHero(e){
-/*         var clonedNode = document.querySelector(".hero-template").cloneNode(true);
-        var inputs = clonedNode.querySelectorAll('input');
-        alert( Array.prototype.slice.call(inputs).length);
-
-        [...inputs].forEach(element => {
-            console.log(element);
-            var newElement = document.createElement('span');
-            newElement.innerHTML = 'Test'
-            element.parentNode.replaceChild(newElement, element)
-        }); */
 
         html2canvas(document.querySelector(".hero-template"), {backgroundColor: null}).then(canvas => {
             document.querySelector('.saved-template-container').prepend(canvas);

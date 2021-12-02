@@ -252,6 +252,18 @@ h2 {
 .icon[data-icon='focus'] {
     background-image: url('../images/homebrew/focus.png');
 }
+.icon[data-icon='chi'] {
+    background-image: url('../images/homebrew/chi.png');
+}
+.icon[data-icon='wild'] {
+    background-image: url('../images/homebrew/wild.png');
+}
+.icon[data-icon='one-time-use'] {
+    background-image: url('../images/homebrew/one_time_use.png');
+}
+.icon[data-icon='persistent'] {
+    background-image: url('../images/homebrew/persistent.png');
+}
 
 .template-options {
     display: grid;

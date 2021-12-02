@@ -138,7 +138,7 @@ span.hero-stat-awaken {
 .hero-name {
     grid-area: heroName;
     text-align: left;
-    font-size: 40px;
+    font-size: var(--font-size);
     align-self: end;
 }
 
@@ -341,5 +341,5 @@ input, .invert-color-container, select, textarea {
     border: none;
 }
 .hero-information-options {
-    grid-template-columns: 200px 200px 200px 500px;
+    grid-template-columns: 200px 100px 200px 200px 500px;
 }

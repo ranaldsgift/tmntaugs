@@ -1,6 +1,5 @@
 .hero-overlay {
     background-image: url('../images/homebrew/hero_overlay.png');
-    border-radius: 3px;
 }
 body {
     display: flex;
@@ -8,7 +7,7 @@ body {
     flex-direction: column;
     row-gap: 10px;
 }
-.homebrew-template-container.hero-template {
+.homebrew-template-container.hero-template, .homebrew-template-container.villainai-template  {
     height: 566px;
     width: 700px;
     border-radius: 10px;
@@ -16,7 +15,11 @@ body {
     position: relative;
 }
 
-.hero-overlay, .hero-background {
+.villainai-overlay {
+    background-image:  url('../images/homebrew/villain_ai_overlay.png');
+}
+
+.hero-overlay, .hero-background, .villainai-overlay, .villainai-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -24,7 +27,7 @@ body {
     height: 100%;
     pointer-events: none;
 }
-.hero-background {
+.hero-background, .villainai-background {
     background: var(--background-color);
 }
 
@@ -46,11 +49,7 @@ body {
 
 }
 
-.hero-template>* {
-    border-radius: 10px;
-}
-
-.hero-ability {
+.hero-ability, .villainai-ability {
     position: absolute;
     top: 145px;
     left: 395px;
@@ -67,7 +66,7 @@ span {
     background: none;
 }
 
-.hero-ability-description {
+.hero-ability-description, .villainai-ability-description {
     border: none;
     font-family: inherit;
     font-size: inherit;
@@ -80,17 +79,17 @@ span {
     max-width: 300px;
 }
 
-.hero-stats {
+.hero-stats, .villainai-stats {
     position: absolute;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 45px;
-    grid-template-columns: 56px 54px 55px 54px 63px;
+    grid-template-columns: 83px 86px 55px;
     top: 70px;
-    left: 350px;
+    left: 361px;
 }
 
-.hero-stats span {
+.hero-stats span, .villainai-stats span {
     color: #fff;
     width: 50px;
     text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black, 0 0 2px black;
@@ -112,12 +111,12 @@ span.hero-stat-awaken {
     display: block;
 }
 
-.hero-information {
+.hero-information, .villainai-information {
     position: absolute;
     display: grid;
     grid-template-areas:
-        "heroIcon heroName"
-        "heroIcon heroFactions";
+        "icon name"
+        "icon factions";
     grid-template-columns: 80px 238px;
     grid-template-rows: 50px 30px;
     top: 10px;
@@ -126,8 +125,8 @@ span.hero-stat-awaken {
     grid-column-gap: 10px;
 }
 
-.hero-icon {
-    grid-area: heroIcon;
+.hero-icon, .villainai-icon {
+    grid-area: icon;
     width: 100%;
     height: 100%;
     background-size: contain;
@@ -135,29 +134,21 @@ span.hero-stat-awaken {
     background-position: center;
 }
 
-.hero-name {
-    grid-area: heroName;
+.hero-name, .villainai-name {
+    grid-area: name;
     text-align: left;
     font-size: var(--font-size);
     align-self: end;
 }
 
-.hero-factions {
-    grid-area: heroFactions;
+.hero-factions, .villainai-factions {
+    grid-area: factions;
     font-size: 20px;
     text-align: left;
     align-self: start;
 }
-/* 
-input#heroIcon {
-    width: 80px;
-    height: 80px;
-    opacity: 0;
-    cursor: pointer;
-    font-size: 0px;
-} */
 
-.hero-image {
+.hero-image, .villainai-image {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -219,41 +210,41 @@ h2 {
     position: absolute;
 }
 
-.icon[data-icon='melee'] {
-    background-image: url('../images/homebrew/melee.png');
+.icon[data-icon='melee'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/melee.png');
 }
-.icon[data-icon='double-melee'] {
-    background-image: url('../images/homebrew/double_melee.png');
+.icon[data-icon='double-melee'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/double_melee.png');
 }
-.icon[data-icon='range'] {
-    background-image: url('../images/homebrew/range.png');
+.icon[data-icon='range'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/range.png');
 }
-.icon[data-icon='double-range'] {
-    background-image: url('../images/homebrew/double_range.png');
+.icon[data-icon='double-range'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/double_range.png');
 }
-.icon[data-icon='move'] {
-    background-image: url('../images/homebrew/move.png');
+.icon[data-icon='move'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/move.png');
 }
-.icon[data-icon='double-move'] {
-    background-image: url('../images/homebrew/double_move.png');
+.icon[data-icon='double-move'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/double_move.png');
 }
-.icon[data-icon='block'] {
-    background-image: url('../images/homebrew/block.png');
+.icon[data-icon='block'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/block.png');
 }
-.icon[data-icon='block-melee'] {
-    background-image: url('../images/homebrew/block_melee.png');
+.icon[data-icon='block-melee'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/block_melee.png');
 }
-.icon[data-icon='block-range'] {
-    background-image: url('../images/homebrew/block_range.png');
+.icon[data-icon='block-range'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/block_range.png');
 }
-.icon[data-icon='block-move'] {
-    background-image: url('../images/homebrew/block_move.png');
+.icon[data-icon='block-move'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/block_move.png');
 }
-.icon[data-icon='focus'] {
-    background-image: url('../images/homebrew/focus.png');
+.icon[data-icon='focus'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/focus.png');
 }
-.icon[data-icon='chi'] {
-    background-image: url('../images/homebrew/chi.png');
+.icon[data-icon='chi'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/chi.png');
 }
 .icon[data-icon='wild'] {
     background-image: url('../images/homebrew/wild.png');
@@ -263,6 +254,18 @@ h2 {
 }
 .icon[data-icon='persistent'] {
     background-image: url('../images/homebrew/persistent.png');
+}
+.icon[data-icon='health'], .icon[data-icon='health'][data-type='tmnt'][data-inverted='false'] {
+    background-image: url('../images/homebrew/tmnt/health.png');
+}
+.icon[data-icon='arrow_up'] {
+    background-image: url('../images/homebrew/arrow_up.png');
+}
+.icon[data-icon='arrow_down'] {
+    background-image: url('../images/homebrew/arrow_down.png');
+}
+.icon[data-icon='skill'] {
+    background-image: url('../images/homebrew/skill.png');
 }
 
 .template-options {

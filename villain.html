@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <title>TMNT Board Game Assistant</title>
+        <script src="script/villain.js"></script>
+        <script src="script/html2canvas.min.js"></script>
+        <link rel="stylesheet" href="style/homebrew.css">
+        <link rel="stylesheet" href="style/villain.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <div class="image-settings">
+        <label>Select Villain Image:</label>
+        <input type="file" id="villainAiImage" style="display: none;">
+        <input type="button" value="Browse..." onclick="document.getElementById('villainAiImage').click();">
+        <label>Select Villain Icon:</label>
+        <input type='file' id="villainAiIcon" style="display: none;">
+        <input type="button" value="Browse..." onclick="document.getElementById('villainAiIconImage').click();">
+        <label>Villain Image Position Left:</label>
+        <input id="villainAiImagePositionLeft" type="number" value="0">
+        <label>Villain Image Position Top:</label>
+        <input id="villainAiImagePositionTop" type="number" value="0">
+        <label>Villain Image Size:</label>
+        <input id="villainAiImageSize" type="number" min="1" max="200" step="1" value="100">
+        <label>Card Color:</label>
+        <input type="color" id="villainAiCardColor" name="cardColor" value="#646464">
+      </div>
+      <div class="template-options">
+        <div>
+          <label>Attack Type:</label>
+          <select class="villainai-attack-type-select">
+            <option value="melee">Melee</option>
+            <option value="2">Range 2</option>
+            <option value="3">Range 3</option>
+            <option value="4">Range 4</option>
+            <option value="5">Range 5</option>
+            <option value="6">Range 6</option>
+          </select>
+          <label>High/Low Priority:</label>
+          <select class="villainai-priority-value">
+            <option value="arrow_up">Highest</option>
+            <option value="arrow_down">Lowest</option>
+          </select>
+          <label>Priority Type:</label>
+          <select class="villainai-priority-type">
+            <option value="health">Health</option>
+            <option value="focus">Focus</option>
+            <option value="skill">Skill</option>
+          </select>
+        </div>
+        <div>
+          <label>Move:</label>
+          <input class="villainai-stat-move" type="text" value="1">
+          <label>Attack:</label>
+          <input class="villainai-stat-attack" type="text" value="1">
+          <label>Block:</label>
+          <input class="villainai-stat-block" type="text" value="1">
+          <label>Health:</label>
+          <input class="villainai-stat-health" type="text" value="1">
+        </div>
+        <div class="villainai-information-options">
+          <label>Villain Name:</label>
+          <input type="text" id="villainAiName" placeholder="Villain Name">
+          <label>Font Size:</label>
+          <input type="number" id="villainAiNameFontSize" value="40" step="1" min="1" max="40">
+          <label>Faction / Keywords:</label>
+          <input type="text" id="villainAiFactions" placeholder="Villain Factions">
+          <label>Ability:</label>
+          <input type="text" id="villainAiAbility" placeholder="Ability Name">
+          <label>Ability Description:</label>
+          <textarea type="text" id="villainAiAbilityDescription" placeholder="Ability Description"></textarea>
+        </div>
+        <div>
+          <label>Save Image</label>
+          <input type="button" id="saveVillainAi" name="saveVillainAi" value="Create PNG">
+        </div>
+      </div>
+      <div style="display: flex; column-gap: 10px; row-gap: 10px; flex-wrap: wrap;">
+        <div class="homebrew-template-container villainai-template tmnt-icon">
+          <div class="villainai-background" style="--background-color: #646464;"></div>
+          <div class="villainai-overlay"></div>
+          <div class="villainai-image" style="--left: 0px; --top: 0px; --size: 100%;"></div>
+          <div class="villainai-stats">
+            <span class="villainai-stat-move" value="1">1</span>
+            <span class="villainai-stat-attack" value="1">1</span>
+            <span class="villainai-stat-block" value="1">1</span>
+            <span class="villainai-stat-health" value="1">1</span>
+          </div>
+          <div class="villainai-information">
+            <div class="villainai-icon">
+            </div>
+            <span style="--font-size: 40px" class="villainai-name" placeholder="Villain Name" type="text">Villain Name</span>
+            <span class="villainai-factions" placeholder="Villain Factions" type="text">Villain Factions</span>
+          </div>
+          <div class="villainai-ability">
+            <span class="villainai-ability-name" placeholder="Ability Name">Ability Name</span>
+            <span class="villainai-ability-description" placeholder="Ability description"></span>
+          </div>
+          <div class="villainai-attack">
+            <span class="villainai-attack-value icon" data-icon="melee" data-type="tmnt" data-inverted="false"></span>
+          </div>
+          <div class="villainai-priority">
+            <span class="priority-value icon" data-icon="arrow_up"></span>
+            <span class="priority-type icon" data-icon="health" data-type="tmnt" data-inverted="false"></span>
+          </div>
+        </div>
+        <div class="saved-template-container"></div>
+      </div>
+    </body>
+</html>

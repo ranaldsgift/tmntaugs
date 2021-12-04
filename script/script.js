@@ -120,6 +120,10 @@ function drawInitiativeCard() {
     initiativeImage.src = `images/initiative/${initiativeDrawn}`;
     initiativeCards.appendChild(initiativeImage);
     document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length;
+
+    var initiativeDrawDeck = document.querySelector('.initiative-draw-deck');
+    initiativeDrawDeck.classList.add('drawn');
+    setTimeout(() => { initiativeDrawDeck.classList.remove('drawn'); }, 1500)
 }
 
 function drawEventCard() {
@@ -211,8 +215,10 @@ function drawEventCard() {
 
     var eventDrawDeck = document.querySelector('.event-draw-deck');
     eventDrawDeck.parentNode.insertBefore(eventCardContainer, eventDrawDeck.nextSibling);
-    //eventCards.prepend(eventCardContainer);
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
+    
+    eventDrawDeck.classList.add('drawn');
+    setTimeout(() => { eventDrawDeck.classList.remove('drawn'); }, 1500)
 }
 
 function incrementEventCounter(e) {

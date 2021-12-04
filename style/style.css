@@ -8,6 +8,7 @@
     display: none;
     max-height: 400px;
     max-width: 367px;
+    animation: fade 0.5s linear;
 }
 
 .initiative-cards img:last-child {
@@ -235,7 +236,7 @@ span.initiative-deck-quantity, span.event-deck-quantity {
     cursor: pointer;
 }
 
-.shuffle-initiative-indicator, .shuffle-events-indicator {
+.shuffle-initiative-indicator, .shuffle-events-indicator, .drawn-initiative-indicator, .drawn-events-indicator {
     opacity: 0;
     position: absolute;
     position: absolute;
@@ -255,11 +256,16 @@ span.initiative-deck-quantity, span.event-deck-quantity {
     display: none;
 }
 
-.draw-deck.shuffled .shuffle-initiative-indicator, .draw-deck.shuffled .shuffle-events-indicator {
-    animation: fade 1.5s linear;
+.draw-deck.shuffled .shuffle-initiative-indicator, .draw-deck.shuffled .shuffle-events-indicator, .draw-deck.drawn .drawn-initiative-indicator, .draw-deck.drawn .drawn-events-indicator {
+    animation: fadeinout 1.5s linear;
 }
 
 @keyframes fade {
+  0% { opacity: 0 }
+  60% { opacity: 1 }
+}
+
+@keyframes fadeinout {
   0%,100% { opacity: 0 }
   15%,85% { opacity: 1 }
 }
@@ -313,6 +319,7 @@ span.magnify-button {
 
 .event-card-container {
     position: relative;
+    animation: fade 0.5s linear;
 }
 
 .event-deck[data-showdiscards='true'] .event-cards .event-card-container:nth-child(n+6) {

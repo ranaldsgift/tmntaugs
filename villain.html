@@ -14,7 +14,7 @@
         <input type="button" value="Browse..." onclick="document.getElementById('villainAiImage').click();">
         <label>Select Villain Icon:</label>
         <input type='file' id="villainAiIcon" style="display: none;">
-        <input type="button" value="Browse..." onclick="document.getElementById('villainAiIconImage').click();">
+        <input type="button" value="Browse..." onclick="document.getElementById('villainAiIcon').click();">
         <label>Villain Image Position Left:</label>
         <input id="villainAiImagePositionLeft" type="number" value="0">
         <label>Villain Image Position Top:</label>
@@ -25,6 +25,16 @@
         <input type="color" id="villainAiCardColor" name="cardColor" value="#646464">
       </div>
       <div class="template-options">
+        <div class="ai-villain-stats">
+          <label>AI Move:</label>
+          <input class="villainai-stat-move" type="text" value="1">
+          <label>AI Attack:</label>
+          <input class="villainai-stat-attack" type="text" value="1">
+          <label>AI Block:</label>
+          <input class="villainai-stat-block" type="text" value="1">
+          <label>AI Health:</label>
+          <input class="villainai-stat-health" type="text" value="1">
+        </div>
         <div>
           <label>Attack Type:</label>
           <select class="villainai-attack-type-select">
@@ -47,15 +57,17 @@
             <option value="skill">Skill</option>
           </select>
         </div>
-        <div>
-          <label>Move:</label>
-          <input class="villainai-stat-move" type="text" value="1">
-          <label>Attack:</label>
-          <input class="villainai-stat-attack" type="text" value="1">
-          <label>Block:</label>
-          <input class="villainai-stat-block" type="text" value="1">
-          <label>Health:</label>
-          <input class="villainai-stat-health" type="text" value="1">
+        <div class="competitive-villain-stats">
+          <label>Comp Move:</label>
+          <input class="villain-stat-move" type="text" value="1">
+          <label>Comp Attack:</label>
+          <input class="villain-stat-attack" type="text" value="1">
+          <label>Comp Block:</label>
+          <input class="villain-stat-block" type="text" value="1">
+          <label>Comp Health:</label>
+          <input class="villain-stat-health" type="text" value="1">
+          <label>Comp Awaken:</label>
+          <input class="villain-stat-awaken" type="text" value="1">
         </div>
         <div class="villainai-information-options">
           <label>Villain Name:</label>
@@ -64,17 +76,23 @@
           <input type="number" id="villainAiNameFontSize" value="40" step="1" min="1" max="40">
           <label>Faction / Keywords:</label>
           <input type="text" id="villainAiFactions" placeholder="Villain Factions">
-          <label>Ability:</label>
+          <label>Tagline:</label>
+          <input type="text" id="villainTagline" placeholder="Tagline">
+          <label>AI Ability:</label>
           <input type="text" id="villainAiAbility" placeholder="Ability Name">
-          <label>Ability Description:</label>
+          <label>AI Ability Description:</label>
           <textarea type="text" id="villainAiAbilityDescription" placeholder="Ability Description"></textarea>
+          <label>Competitive Ability:</label>
+          <input type="text" id="villainAbility" placeholder="Ability Name">
+          <label>Competitive Ability Description:</label>
+          <textarea type="text" id="villainAbilityDescription" placeholder="Ability Description"></textarea>
         </div>
         <div>
           <label>Save Image</label>
           <input type="button" id="saveVillainAi" name="saveVillainAi" value="Create PNG">
         </div>
       </div>
-      <div style="display: flex; column-gap: 10px; row-gap: 10px; flex-wrap: wrap;">
+      <div class="villain-template-container" style="display: flex; column-gap: 10px; row-gap: 10px; flex-wrap: wrap;">
         <div class="homebrew-template-container villainai-template tmnt-icon">
           <div class="villainai-background" style="--background-color: #646464;"></div>
           <div class="villainai-overlay"></div>
@@ -102,6 +120,30 @@
             <span class="priority-value icon" data-icon="arrow_up"></span>
             <span class="priority-type icon" data-icon="health" data-type="tmnt" data-inverted="false"></span>
           </div>
+        </div>
+        <div class="homebrew-template-container villain-template tmnt-icon">
+          <div class="villain-background" style="--background-color: #646464;"></div>
+          <div class="villain-overlay"></div>
+          <div class="villain-image" style="--left: 0px; --top: 0px; --size: 100%;"></div>
+          <div class="villain-stats">
+            <span class="villain-stat-move" value="1">1</span>
+            <span class="villain-stat-attack" value="1">1</span>
+            <span class="villain-stat-block" value="1">1</span>
+            <span class="villain-stat-health" value="1">1</span>
+            <span class="villain-stat-awaken" value="1">1</span>
+          </div>
+          <div class="villain-information">
+            <div class="villain-icon">
+            </div>
+            <span style="--font-size: 40px" class="villain-name" placeholder="Villain Name" type="text">Villain Name</span>
+            <span class="villain-factions" placeholder="Villain Factions" type="text">Villain Factions</span>
+          </div>
+          <div class="villain-ability">
+            <span class="villain-ability-name" placeholder="Ability Name">Ability Name</span>
+            <span class="villain-ability-description" placeholder="Ability description"></span>
+          </div>
+          <span class="villain-tagline">
+          </span>
         </div>
         <div class="saved-template-container"></div>
       </div>

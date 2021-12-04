@@ -93,3 +93,41 @@ span.priority-type {
 span.priority-type.icon[data-icon='skill'] {
     background-size: 75%;
 }
+
+span.villain-stat-health {
+    position: absolute;
+    right: -72px;
+    top: -48px;
+    color: #000;
+    text-shadow: none;
+}
+
+span.villain-stat-awaken {
+    position: absolute;
+    right: -91px;
+    font-size: 20px;
+    top: -2px;
+}
+
+span.villain-tagline {
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    width: 330px;
+    height: 84px;
+    display: grid;
+    align-content: center;
+    color: #fff;
+    font-family: 'smackattack_bbregular';
+    font-size: 16px;
+}
+
+.villain-template-container .saved-template-container>canvas:nth-child(2) {
+    display: block;
+}
+
+.saved-template-container {
+    display: flex;
+    row-gap: 10px;
+    column-gap: 10px;
+}

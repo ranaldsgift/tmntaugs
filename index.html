@@ -3,9 +3,24 @@
         <title>TMNT Board Game Assistant</title>
         <script src="script/script.js"></script>
         <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="style/navigation.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body data-page="playarea">
+        <nav role="navigation">
+          <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+              <a href="/"><li>Co-Op Tool</li></a>
+              <a href="/hero"><li>Hero Homebrew</li></a>
+              <a href="/villain"><li>Villain Homebrew</li></a>
+              <a href="/skillcard"><li>Skill Card Homebrew</li></a>
+            </ul>
+          </div>
+        </nav>
         <div class="setup-area">
             <a class="event-rules-button" target="_blank" href="files/AUGS Event Deck Rules.pdf">Click here for AUGS Event Deck Rules</a>
             <div class="initiative-selection">

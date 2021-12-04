@@ -160,7 +160,7 @@ span.initiative-deck-quantity, span.event-deck-quantity {
 
 .setup-area {
     padding-bottom: 10px;
-    margin-bottom: 10px;
+    margin: 15px 0;
     box-shadow: 0px 4px 5px -5px #000;
 }
 

@@ -51,6 +51,8 @@ window.onload = (event) => {
         var iconChild = document.createElement('div');
         iconChild.classList = 'icon';
         iconChild.dataset.icon = iconName;
+        iconChild.dataset.type = 'tmnt';
+        iconChild.dataset.inverted = 'false';
 
         document.querySelector('.skill-card-cost-container').appendChild(iconChild)
     }, true);

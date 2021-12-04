@@ -5,9 +5,24 @@
         <script src="script/html2canvas.min.js"></script>
         <link rel="stylesheet" href="style/skillcard.css">
         <link rel="stylesheet" href="style/homebrew.css">
+        <link rel="stylesheet" href="style/navigation.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+      <nav role="navigation">
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            <a href="/"><li>Co-Op Tool</li></a>
+            <a href="/hero"><li>Hero Homebrew</li></a>
+            <a href="/villain"><li>Villain Homebrew</li></a>
+            <a href="/skillcard"><li>Skill Card Homebrew</li></a>
+          </ul>
+        </div>
+      </nav>
       <div class="skill-card-settings">
         <div class="image-settings">
           <label>Select Card Image:</label>

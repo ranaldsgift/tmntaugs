@@ -4,15 +4,16 @@
     grid-auto-rows: minmax(30px, auto);
     margin: 0 auto;
 }
-.initiative-cards img {
+.initiative-cards .initiative-container {
     display: none;
+}
+.initiative-cards .initiative-container:last-child {
+    display: block;
+}
+.initiative-cards img {
     max-height: 400px;
     max-width: 367px;
     animation: fade 0.5s linear;
-}
-
-.initiative-cards img:last-child {
-    display: inline-block;
 }
 
 .event-cards img {
@@ -399,4 +400,47 @@ span.list-number {
     text-align: center;
     background: #673ab7;
     color: #fff;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+  
+  .card__face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    backface-visibility: hidden;
+    background-size: cover;
+    border-radius: 5px;
+  }
+  
+  .card__face--back {
+    transform: rotateY( 180deg );
+  }
+  
+  .card.is-flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .card {
+      width: 285.7px;
+      height: 400px;
+  }
+
+  .event-card-container .card.is-flipped .card__face {
+    left: 302px;
+  }
+
+.initiative-container.is-flipped img.card__face {
+      left: 302px;
+}
+.initiative-container:not(.is-flipped) img.card__face, .event-card-container .card:not(.is-flipped) .card__face {
+      left: 0px;
+      transition: 1s;
 }

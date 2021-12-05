@@ -116,14 +116,24 @@ function drawInitiativeCard() {
         return;
     }
 
+    var initiativeContainer = document.createElement('div');
+    initiativeContainer.classList = 'initiative-container card is-flipped';
+
+    var initiativeBackImage = document.createElement('img');
+    initiativeBackImage.classList = 'card__face card__face--back';
+    initiativeBackImage.src = `images/initiative/back.jpg`;
+
     var initiativeImage = document.createElement('img');
+    initiativeImage.classList = 'card__face card__face--front';
     initiativeImage.src = `images/initiative/${initiativeDrawn}`;
-    initiativeCards.appendChild(initiativeImage);
+
+    initiativeContainer.appendChild(initiativeBackImage);
+    initiativeContainer.appendChild(initiativeImage);
+
+    initiativeCards.appendChild(initiativeContainer);
     document.querySelector('.initiative-deck-quantity').innerHTML = initiativeDeck.length;
 
-    var initiativeDrawDeck = document.querySelector('.initiative-draw-deck');
-    initiativeDrawDeck.classList.add('drawn');
-    setTimeout(() => { initiativeDrawDeck.classList.remove('drawn'); }, 1500)
+    setTimeout(() => { initiativeContainer.classList.remove('is-flipped'); }, 10);
 }
 
 function drawEventCard() {
@@ -172,10 +182,21 @@ function drawEventCard() {
 
     eventButtonContainer.appendChild(removeEventButton);
 
-    var eventImage = document.createElement('div');
-    eventImage.style.backgroundImage = `url('images/events/${eventDrawn.image}')`;
-    eventImage.classList.add('card-background');
-    eventImage.classList.add('card-shadow');
+    var eventImageContainer = document.createElement('div');
+    eventImageContainer.classList.add('card-background');
+    eventImageContainer.classList.add('card-shadow');
+    eventImageContainer.classList.add('card');
+    eventImageContainer.classList.add('is-flipped');
+
+    var eventImageFront = document.createElement('div');
+    eventImageFront.style.backgroundImage = `url('images/events/${eventDrawn.image}')`;
+    var eventImageBack = document.createElement('div');
+    eventImageBack.style.backgroundImage = `url('images/events/back.jpg')`;
+    eventImageFront.classList = 'card__face card__face--front';
+    eventImageBack.classList = 'card__face card__face--back';
+
+    eventImageContainer.appendChild(eventImageBack);
+    eventImageContainer.appendChild(eventImageFront);
 
     var magnifyButton = document.createElement('span');
     magnifyButton.innerHTML = '+';
@@ -183,7 +204,7 @@ function drawEventCard() {
     magnifyButton.addEventListener('click', magnifyCard);
 
     eventCardContainer.appendChild(eventButtonContainer);
-    eventCardContainer.appendChild(eventImage);
+    eventCardContainer.appendChild(eventImageContainer);
     eventCardContainer.appendChild(magnifyButton);
 
     var eventCardQuantity = document.querySelectorAll('.event-cards .event-card-container').length;
@@ -217,8 +238,9 @@ function drawEventCard() {
     eventDrawDeck.parentNode.insertBefore(eventCardContainer, eventDrawDeck.nextSibling);
     document.querySelector('.event-deck-quantity').innerHTML = eventDeck.length;
     
-    eventDrawDeck.classList.add('drawn');
-    setTimeout(() => { eventDrawDeck.classList.remove('drawn'); }, 1500)
+    //eventDrawDeck.classList.add('drawn');
+    //setTimeout(() => { eventDrawDeck.classList.remove('drawn'); }, 1500);
+    setTimeout(() => { eventImageContainer.classList.remove('is-flipped'); }, 10);
 }
 
 function incrementEventCounter(e) {

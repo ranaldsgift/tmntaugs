@@ -93,6 +93,7 @@ function loadOverlayTokenOptions() {
             }
 
             var xhr = new XMLHttpRequest();
+            alert(`${rootFolderDev}images/homebrew/${gameTokenType.name}/overlay tokens/${overlayTokenType}`);
             xhr.open("GET", `${rootFolderDev}images/homebrew/${gameTokenType.name}/overlay tokens/${overlayTokenType}`, true);
             xhr.responseType = 'document';
             xhr.onload = () => {

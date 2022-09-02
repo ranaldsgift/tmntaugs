@@ -27,23 +27,7 @@ const overlayTokenTypes = [
     {
         name: 'dblade cartography',
         types: [
-            'blocking terrain',
-            'covered terrain',
-            'elevated terrain',
-            'harmful terrain',
-            'obscuring terrain',
-            'rough terrain',
-            'slow terrain',
-            'unstable terrain',
-            'doors',
-            'figures',
-            'goal',
-            'health',
-            'machines',
-            'neutral terrain',
-            'objectives',
-            'spawns',
-            'status'
+            'slow terrain'
         ]
     }
 ]

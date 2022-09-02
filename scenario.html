@@ -1,0 +1,224 @@
+<html>
+    <head>
+        <title>TMNT Board Game Assistant</title>
+        <script src="script/scenario.js"></script>
+        <script src="script/html2canvas.min.js"></script>
+        <link rel="stylesheet" href="style/homebrew.css">
+        <link rel="stylesheet" href="style/scenario.css">
+        <link rel="stylesheet" href="style/navigation.css">
+        <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+      <nav role="navigation">
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            <a href="/"><li>Co-Op Tool</li></a>
+            <a href="/hero"><li>Hero Homebrew</li></a>
+            <a href="/villain"><li>Villain Homebrew</li></a>
+            <a href="/skillcard"><li>Skill Card Homebrew</li></a>
+            <a href="/scenario"><li>Scenario Homebrew</li></a>
+          </ul>
+        </div>
+      </nav>
+      <div class="floating-toolbox">
+        <div class="floating-template-options" data-active="text-config">
+          <ul>
+            <li data-tab="text-config" class="selected">Text Configuration</li>
+            <li data-tab="map-tiles">Map Tiles</li>
+            <li data-tab="overlay-tokens">Overlay Tokens</li>
+          </ul>
+        <div class="template-options scenario-template-options">
+          <div>
+            <label>Scenario Number</label>
+            <input id="scenarioNumber" type="text" placeholder="Scenario Number">
+            <label>Scenario Name</label>
+            <input id="scenarioName" type="text" placeholder="Scenario Name">
+            <label>Scenario Author</label>
+            <input id="scenarioAuthor" type="text" placeholder="Scenario Author">
+            <label>Scenario Hero Skill Modifier:</label>
+            <input type="number" id="scenarioHeroSkill" value="0"></input>
+            <label>Scenario Villain Focus:</label>
+            <input type="number" id="scenarioVillainFocus" value="3"></input>
+          </div>
+          <div>
+            <label>Scenario Description:</label>
+            <textarea type="text" id="scenarioDescription" placeholder="Enter the description for your scenario here"></textarea>
+            <label>Scenario Rules:</label>
+            <textarea type="text" id="scenarioRules" placeholder="Enter the rules for your scenario here"></textarea>
+          </div>
+          <div>
+            <label>Scenario Heroes Objective:</label>
+            <textarea type="text" id="scenarioHeroObjective" placeholder="Enter the heroes' objective for your scenario here"></textarea>
+            <label>Scenario Villain Objective:</label>
+            <textarea type="text" id="scenarioVillainObjective" placeholder="Enter the villain's objective for your scenario here"></textarea>
+          </div>
+          <div>
+            <label>Scenario Heroes Victory:</label>
+            <textarea type="text" id="scenarioHeroVictory" placeholder="Enter the heroes' victory summary for your scenario here"></textarea>
+            <label>Scenario Villains Victory:</label>
+            <textarea type="text" id="scenarioVillainVictory" placeholder="Enter the villain's victory summary for your scenario here"></textarea>
+          </div>
+          <div>
+            <label>Components List:</label>
+            <textarea type="text" id="scenarioHeroVictory" placeholder="Enter the components list for your scenario here"></textarea>
+            <label>Initiative List:</label>
+            <textarea type="text" id="scenarioVillainVictory" placeholder="Enter the initiative list for your scenario here"></textarea>
+            <label>Difficulty Boost:</label>
+            <textarea type="text" id="scenarioDifficultyBoost" placeholder="Enter the difficulty boost for your scenario here"></textarea>
+          </div>
+          <div>
+            <label>Villain Icon:</label>
+            <button id="villainIcon" value="Select Icon">Select Icon</button>
+            <label>Villain Name:</label>
+            <textarea type="text" id="villainName" placeholder="Enter the heroes' victory summary for your scenario here"></textarea>
+            <label>Villain Category:</label>
+            <textarea type="text" id="villainCategory" placeholder="Enter the villain's victory summary for your scenario here"></textarea>
+            <label>Villain Decks:</label>
+            <textarea type="text" id="villainDecks" placeholder="Enter the heroes' victory summary for your scenario here"></textarea>
+            <label>Villain Figure Count:</label>
+            <textarea type="text" id="villainFigureCount" placeholder="Enter the heroes' victory summary for your scenario here"></textarea>
+            <button id="addVillainDeck">Add Villain Deck</button>
+          </div>
+        </div>
+        <div class="map-tile-selection">
+          <div class="template-options map-options">
+            <div>
+              <label>Horizontal Tile Count</label>
+              <input id="horizontalTileCount" type="number" value="1">
+              <label>Last Row Tile Position</label>
+              <input id="lastRowTilePosition" type="text" value="center">
+            </div>
+            <div>
+              <label>Map Tile Selection</label>
+              <div class="map-tile-selection-container selection-container">
+                <div class="map-tile-filters filters-container">
+                </div>
+                <div class="map-tile-container filtered-data-container" data-type="all"></div>
+              </div> 
+            </div>
+          </div>
+        </div>
+        <div class="overlay-token-selection">
+          <div class="template-options overlay-token-options">
+            <div>
+              <label>Overlay Token Selection</label>
+              <div class="selection-container">
+                <div class="overlay-token-filters filters-container">
+                </div>
+                <div class="overlay-token-container filtered-data-container" data-type="all"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="homebrew-template-container">
+        <div class="scenario-template-container">
+          <div class="scenario-header">
+            <span class="scenario-name">We can do this the easy way or the hard way</span>
+            <span class="scenario-number">Battle 3:1</span>
+            <span class="scenario-author">IDW Games</span>
+          </div>
+          <div>
+            <span class="scenario-description">The Foot Clan has taken Master Splinter, and the turtles have no idea where to look for him. Since the Purple Dragons are a good source of intel, they may know the location of Foot HQ.</span>
+          </div>
+          <div class="scenario-rules-container">
+            <span class="scenario-text-header">Rules</span>
+            <div class="scenario-rules sans-serif">
+              <span>This is a crossover campaign requires both <b>TMNT Adventures: Change is Constant</b> and <b>TMNT Adventures: City Fall</b> to play.</span>
+              <span>This battle must be played with 6 heroes. Splinter may not be played.</span>
+              <span>Since this is Purple Dragons' turf, all villain figures receive Attack/Hit +1.</span>
+              <span><b>COMPETITIVE MODE:</b> At the start of the battle, the villain player places 1 objective token under each Purple Dragon Gang figure with the question mark side facing up.</span>
+              <span><b>COOPERATIVE MODE:</b> At the start of the battle, the hero players shuffle the objective tokens and randomly place 1 under each Purple Dragon Gang figure with the question mark side facing up.</span>
+              <span>When a Purple Dragon Gang figure with an objective token is KO'ed, the token is revealed. If the revealed token is red or blue, it is given to the heroes. If the revealed token is green, it is returned to the box.</span>
+            </div>
+          </div>
+          <div class="scenario-strengths">
+            <span class="scenario-text-header">Strengths</span>
+            <div class="strengths-container">
+              <div class="inline-labels">
+              <label>Heroes:</label>
+              <label>Skill Modifier:</label>
+              <span class="hero-skill">N/A</span>
+              </div>
+              <div class="inline-labels">
+              <label>Villains:</label>
+              <label>Focus:</label>
+              <span class="villain-focus">3</span>
+              </div>
+            </div>
+          </div>
+          <div class="scenario-objectives">
+            <span class="scenario-text-header">Objectives</span>
+            <label>Heroes:</label>
+            <span class="hero-objective sans-serif">The heroes win if they obtain 2 red and 2 blue objective tokens.</span>
+            <label>Villains:</label>
+            <span class="villain-objective sans-serif">The villains win if the heroes receive 2 KO tokens (among all heroes).</span>
+          </div>
+          <div class="scenario-victory">
+            <span class="scenario-text-header">Victory</span>
+            <label>Heroes:</label>
+            <span class="hero-victory sans-serif">The turtles interrogate the Purple Dragons and discover where the Foot Clan has been hiding out. Angel Bridge, long-time friend of Casey Jones (and leader of the Purple Dragons), agrees to help the turtles in their search for Splinter.</br></br><b>Proceed to Shadows of the Past: In Need of a Miracle in the CITY FALL ADVENTURE COMIC.</b></span>
+            <label>Villains:</label>
+            <span class="villain-victory sans-serif">The Purple Dragons' sheer numbers overwhelm the turtles. As the heroes make their retreat, a familiar face appears. Angel Bridge, long-time friend of Casey Jones (and leader of the Purple Dragons), provides the turtles with the Foot CLan's location.</br></br><b>Proceed to Shadows of the Past: In Need of a Miracle in the CITY FALL ADVENTURE COMIC.</b></span>
+          </div>
+          <div class="scenario-map">
+            <div class="scenario-map-container">
+            </div>
+          </div>
+          <div class="scenario-information">
+            <div class="scenario-components">
+              <img src="images/homebrew/tmnt/header_components.png">
+              <div class="content sans-serif">
+                <li>6x Green Objective</li>
+                <li>2x Red Objective</li>
+                <li>2x Blue Objective</li>
+                <li>3x Manhole Cover</li>
+                <li>2x Car</li>
+                <li>3x Fire Escape</li>
+                <li>1x Billboard</li>
+                <li>1x A/C Unit</li>
+                <li>8x Villain Spawn</li>
+                <li>1x Dumpster</li>
+              </div>
+            </div>
+            <div class="scenario-initiative">
+              <img src="images/homebrew/tmnt/header_initiative.png">
+              <div class="content sans-serif">
+                <li>6x Hero</li>
+                <li>1x Purple Dragons Gang</li>
+                <li>2x Thug Brawler</li>
+                <li>1x Thug Gunner</li>
+              </div>
+            </div>
+            <div class="scenario-difficulty-boost">
+              <img src="images/homebrew/tmnt/header_difficulty.png">
+              <div class="content sans-serif">
+                <span>Choose one:</span>
+                <li>Hero Skill is reduced by 1</li>
+                <li>The villain player may call upon an Evil Ally</li>
+              </div>
+            </div>
+            <div class="scenario-villain">
+              <img src="images/homebrew/tmnt/header_villain.png">
+              <div class="content sans-serif">
+                <div class="villain-deck">
+                  <div class="villain-icon"></span>
+                  <span class="villain-faction">Purple Dragons Gang</span>
+                  <span class="villain-type">Minion</span>
+                  <span class="villain-decks">R / G</span>
+                  <span class="villain-figures">10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scenario-footer"></div>
+        </div>
+      </div>
+    </body>
+</html>

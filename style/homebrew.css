@@ -284,14 +284,13 @@ h2 {
     display: grid;
     grid-auto-flow: row;
     align-items: center;
-    grid-auto-columns: 200px;
     grid-column-gap: 20px;
     grid-row-gap: 10px;
 }
 .template-options>div {
     display: grid;
     grid-auto-flow: column;
-    grid-template-rows: 1fr 1fr;    
+    grid-template-rows: repeat(2, minmax(30px, max-content));
     grid-auto-columns: 100px;
     grid-column-gap: 10px;
 }
@@ -325,7 +324,7 @@ h2 {
     grid-column-gap: 10px;
 }
 
-label {
+.template-options label, .image-settings label {
     align-self: end;
     font-family: 'bangersregular';
     padding: 5px;

@@ -184,7 +184,6 @@ function drawEventCard() {
 
     var eventImageContainer = document.createElement('div');
     eventImageContainer.classList.add('card-background');
-    eventImageContainer.classList.add('card-shadow');
     eventImageContainer.classList.add('card');
     eventImageContainer.classList.add('is-flipped');
 
@@ -192,8 +191,8 @@ function drawEventCard() {
     eventImageFront.style.backgroundImage = `url('images/events/${eventDrawn.image}')`;
     var eventImageBack = document.createElement('div');
     eventImageBack.style.backgroundImage = `url('images/events/back.jpg')`;
-    eventImageFront.classList = 'card__face card__face--front';
-    eventImageBack.classList = 'card__face card__face--back';
+    eventImageFront.classList = 'card__face card__face--front card-shadow';
+    eventImageBack.classList = 'card__face card__face--back card-shadow';
 
     eventImageContainer.appendChild(eventImageBack);
     eventImageContainer.appendChild(eventImageFront);
@@ -293,11 +292,11 @@ function removeEventCard(e) {
 
         var focusDifficulty = eventCardContainer.dataset.active === 'true' ? 4 : 5 - Array.prototype.indexOf.call(eventCardContainer.parentElement.children, eventCardContainer);
         if (confirm(`Perform a Difficulty ${focusDifficulty} Focus Check`)) {
-            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url("images/events/resolved.jpg")`;
+            eventCardContainer.querySelector('.card-background .card__face--front').style.backgroundImage = `url("images/events/resolved.jpg")`;
             eventCardContainer.classList.add('empty');
             eventCardContainer.dataset.removed = true;            
         } else {
-            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url('images/events/${eventCardContainer.dataset.filename}')`;
+            eventCardContainer.querySelector('.card-background .card__face--front').style.backgroundImage = `url('images/events/${eventCardContainer.dataset.filename}')`;
             eventCardContainer.classList.remove('empty');
             eventCardContainer.dataset.removed = false;
         };
@@ -320,40 +319,12 @@ function activateEventCard(e) {
             document.querySelector('.active-event-cards').prepend(eventCardContainer.cloneNode(true));    
             eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== eventCardContainer.dataset.filename; }) : [];
             
-            eventCardContainer.querySelector('.card-background').style.backgroundImage = `url("images/events/resolved.jpg")`;
+            eventCardContainer.querySelector('.card-background .card__face--front').style.backgroundImage = `url("images/events/resolved.jpg")`;
             eventCardContainer.querySelector('.event-button-container').innerHTML = '';
             eventCardContainer.classList.add('empty');
             eventCardContainer.dataset.removed = true; 
         }
     }    
-}
-
-function burnEventCard(e, image) {
-    e.preventDefault();
-
-    if (e.target.src.includes('resolved')) {
-        moveEventToActivePool(e);
-        return;
-    }
-
-    e.target.src = "images/events/resolved.jpg";
-
-    e.target.parentElement.classList.add('empty');
-    eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== e.target.dataset.filename; }) : [];
-}
-
-function unburnEventCard(e, image) {
-    e.preventDefault();
-    e.target.src = `images/events/${e.target.dataset.filename}`;
-    e.target.parentElement.classList.remove('empty');
-    eventDeckPool.push({ image: e.target.dataset.filename });
-}
-
-function moveEventToActivePool(e, image) {
-    e.preventDefault();
-    e.target.src = `images/events/${e.target.dataset.filename}`;
-    eventDeckPool = eventDeckPool ? eventDeckPool.filter(card => { return card.image !== e.target.dataset.filename; }) : [];    
-    document.querySelector('.active-event-cards').appendChild(e.target);
 }
 
 function createRandomSetup() {

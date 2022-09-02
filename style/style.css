@@ -288,7 +288,7 @@ span.initiative-event-quantity {
     background-size: cover;
 }
 
-.magnify .card-background {
+.magnify .card-background .card__face--front {
     height: 400px;
     width: 285px;
     background-size: 440px;
@@ -442,5 +442,5 @@ span.list-number {
 }
 .initiative-container:not(.is-flipped) img.card__face, .event-card-container .card:not(.is-flipped) .card__face {
       left: 0px;
-      transition: 1s;
+      transition: 0.4s;
 }

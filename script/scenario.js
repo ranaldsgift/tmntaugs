@@ -93,8 +93,7 @@ function loadOverlayTokenOptions() {
             }
 
             var xhr = new XMLHttpRequest();
-            alert(`${rootFolderDev}images/homebrew/${gameTokenType.name}/overlay tokens/${overlayTokenType}`);
-            xhr.open("GET", `${rootFolderDev}images/homebrew/${gameTokenType.name}/overlay tokens/${overlayTokenType}`, true);
+            xhr.open("GET", `${rootFolderProduction}images/homebrew/${gameTokenType.name}/overlay tokens/${overlayTokenType}`, true);
             xhr.responseType = 'document';
             xhr.onload = () => {
             if (xhr.status === 200) {
@@ -145,7 +144,7 @@ function loadMapTileOptions() {
             document.querySelector('.map-tile-filters').appendChild(mapTypeOption);
 
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", `${rootFolderDev}images/homebrew/${gameTileType.name}/map tiles/${mapTileType}`, true);
+            xhr.open("GET", `${rootFolderProduction}images/homebrew/${gameTileType.name}/map tiles/${mapTileType}`, true);
             xhr.responseType = 'document';
             xhr.onload = () => {
             if (xhr.status === 200) {
